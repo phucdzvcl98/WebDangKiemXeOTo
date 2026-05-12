@@ -1,0 +1,263 @@
+.slick-prev {
+    // border: 1px solid green !important;
+    // position: relative !important;
+    left: -10px !important;
+    z-index: 1000 !important;
+    height: 48px !important;
+    width: 44px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #eceaea !important;
+    }
+}
+
+.slick-prev::before,
+.slick-next::before {
+    font-family: FontAwesome !important;
+    color: red !important;
+    // content: "\f060" !important;
+}
+
+.slick-next {
+    right: -10px !important;
+    z-index: 1000 !important;
+    height: 48px !important;
+    width: 44px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #eceaea !important;
+    }
+}
+
+.slick-disabled {
+    display: none !important;
+}
+
+.section-share {
+    &.section-dich-vu {
+        background: #f5f5f5;
+    }
+
+    &.section-trung-tam-dang-kiem {
+        background: #f5f5f5;
+    }
+
+    &.section-about {
+        height: 500px !important;
+        border-top: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .section-body {
+        .section-customize {
+
+            .bg-image {
+                width: 260px;
+                height: 150px;
+                background-color: #eee;
+                background-position: center center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                border-radius: 10px;
+                overflow: hidden;
+
+                &.section-dich-vu {
+                    &.an-toan {
+                        background-image: url('../../assets/dich-vu/antoankythuat.png');
+                    }
+
+                    &.khi-thai {
+                        background-image: url('../../assets/dich-vu/kiemdinhkhithai.png');
+                    }
+
+                    &.online {
+                        background-image: url('../../assets/dich-vu/datlichdangkiemonline.png');
+                    }
+
+                    &.tai-nha {
+                        background-image: url('../../assets/dich-vu/dangkiemtainha.png');
+                    }
+
+                    &.ktra-xe {
+                        background-image: url('../../assets/dich-vu/kiemtraxetruocdangkiem.png');
+                    }
+
+                    &.tu-van {
+                        background-image: url('../../assets/dich-vu/tuvan.png');
+                    }
+                }
+
+                &.section-khu-vuc {
+                    &.hanoi {
+                        background-image: url('../../assets/khu-vuc/hanoi.png');
+                    }
+
+                    &.tphcm {
+                        background-image: url('../../assets/khu-vuc/tphcm.png');
+                    }
+
+                    &.danang {
+                        background-image: url('../../assets/khu-vuc/danang.png');
+                    }
+
+                    &.haiphong {
+                        background-image: url('../../assets/khu-vuc/haiphong.png');
+                    }
+
+                    &.cantho {
+                        background-image: url('../../assets/khu-vuc/cantho.png');
+                    }
+
+                    &.binhduong {
+                        background-image: url('../../assets/khu-vuc/binhduong.png');
+                    }
+
+                }
+
+                &.section-trung-tam-dang-kiem {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+
+
+                }
+
+                &.section-cam-nang {
+                    &.dangkiem {
+                        background-image: url('../../assets/cam-nang/dangkiem.png');
+                    }
+
+                    &.giayto {
+                        background-image: url('../../assets/cam-nang/giayto.png');
+                    }
+
+                    &.kq {
+                        background-image: url('../../assets/cam-nang/kq.png');
+                    }
+
+                    &.luuy {
+                        background-image: url('../../assets/cam-nang/luuy.png');
+                    }
+
+                    &.trungtam {
+                        background-image: url('../../assets/cam-nang/trungtam.png');
+                    }
+
+                    &.xe {
+                        background-image: url('../../assets/cam-nang/xe.png');
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section-share {
+    height: 330px;
+
+    margin: 0 50px;
+
+    .section-container {
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            height: 60px;
+            margin-bottom: 30px;
+            margin-top: 30px;
+
+            .title-section {
+                font-size: 22px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                background: #ebebeb;
+                color: black;
+                cursor: pointer;
+                text-transform: uppercase;
+
+                &:hover {
+                    background: yellow;
+                    color: white;
+                }
+            }
+        }
+
+
+    }
+
+}
+
+.section-trung-tam-dang-kiem {
+    .trung-tam-dang-kiem-bg {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-bottom: 10px !important;
+    }
+
+    .section-customize {
+        padding: 5px;
+        cursor: pointer;
+
+        .customize-border {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #d7d7d7;
+            padding: 20px;
+        }
+    }
+}
+
+.home-footer {
+    text-align: center;
+    padding-top: 8px;
+
+    a {
+        text-decoration: none;
+    }
+
+
+}
+
+.section-about {
+    padding: 0 100px;
+
+    .section-about-header {
+        padding: 20px 10px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .section-about-content {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+
+        .content-left {
+            width: 60%;
+        }
+
+        .content-right {
+            width: 40%;
+
+            p {
+                text-align: justify;
+                font-style: italic;
+                padding: 15px;
+            }
+        }
+    }
+}
