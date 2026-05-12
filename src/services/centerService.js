@@ -59,12 +59,29 @@ let saveDetailInforCenter = (inputData) => {
                     errMessage: 'Missing parament'
                 })
             } else {
-                await db.Markdown.create({
-                    contentHTML: inputData.contentHTML,
-                    contentMarkdown: inputData.contentMarkdown,
-                    description: inputData.description,
-                    centerId: inputData.centerId
-                })
+                if (inputData.aaaction === 'CREATE') {
+                    await db.Markdown.create({
+                        contentHTML: inputData.contentHTML,
+                        contentMarkdown: inputData.contentMarkdown,
+                        description: inputData.description,
+                        centerId: inputData.centerId
+                    })
+                } else if (inputData.action === 'EDIT') {
+                    let centerMarkdown = await db.Markdown.findOne({
+                        where: { centerId: inputData.centerId },
+                        raw: false
+                    })
+                    if (centerMarkdown) {
+                        centerMarkdown.contentHTML = inputData.contentHTML;
+                        centerMarkdown.centerMarkdown = inputData.contentMarkdown;
+                        centerMarkdown.description = inputData.description;
+                        centerMarkdown.updatedAt = new Date();
+
+                        await centerMarkdown.save()
+                    }
+
+                }
+
                 resolve({
                     errCode: 0,
                     errMessage: 'Save infor center success!'
