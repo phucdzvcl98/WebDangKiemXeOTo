@@ -25,8 +25,9 @@ class TrungTamDangKiem extends Component {
         this.props.loadTopCenters();
     }
     handleViewDetailCenter = (center) => {
-        console.log('phuc check view infor:', center)
-        this.props.history.push(`/detail-center/${center.id}`)
+        if (this.props.history) {
+            this.props.history.push(`/detail-center/${center.id}`)
+        }
     }
     render() {
         let arrCenters = this.state.arrCenters;

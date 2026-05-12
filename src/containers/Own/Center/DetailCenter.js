@@ -19,9 +19,6 @@ class DetailCenter extends Component {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
             let res = await getDetailInforCenter(id);
-            console.log('RES: ', res);
-            console.log('DATA: ', res.data);
-            console.log('MARKDOWN: ', res.data.Markdown);
             if (res && res.errCode === 0) {
                 this.setState({
                     detailCenter: res.data
@@ -35,8 +32,6 @@ class DetailCenter extends Component {
     }
 
     render() {
-
-        console.log('phuc : res', this.state)
         let { language } = this.props;
 
         let { detailCenter } = this.state;

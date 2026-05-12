@@ -16,13 +16,30 @@
         outline: none;
         border: none;
         padding: 5px;
-        background: orange;
+        background: yellow;
         cursor: pointer;
 
         &:hover {
             opacity: 0.8;
         }
     }
+
+    .create-content-center {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        border-radius: 3px;
+        outline: none;
+        border: none;
+        padding: 5px;
+        background: blue;
+        cursor: pointer;
+        color: white;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
 
     .more-infor {
         display: flex;

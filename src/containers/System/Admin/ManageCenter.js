@@ -9,8 +9,9 @@ import MdEditor from "react-markdown-editor-lite";
 import 'react-markdown-editor-lite/lib/index.css';
 import './ManageCenter.scss';
 import Select from 'react-select';
-import { LANGUAGES } from "../../../utils";
+import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
 import { saveDetailCenterService } from '../../../services/userService';
+import { getDetailInforCenter } from "../../../services/userService"
 
 
 const mdParser = new MarkdownIt();
@@ -24,7 +25,8 @@ class ManageCenter extends Component {
             contentHTML: '',
             selectedOption: '',
             description: '',
-            listCenters: []
+            listCenters: [],
+            hasOldData: false
         }
     }
 
@@ -71,18 +73,38 @@ class ManageCenter extends Component {
     }
 
     handleSaveContentMarkdown = () => {
+        let { hasOldData } = this.state;
         this.props.saveDetailCenter({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
-            centerId: this.state.selectedOption.value
+            centerId: this.state.selectedOption.value,
+            action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         })
 
     }
 
-    handleChange = selectedOption => {
+    handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption });
-        // console.log(`Option selected`, selectedOption);
+
+        let res = await getDetailInforCenter(selectedOption.value);
+        if (res && res.errCode === 0 && res.data.Markdown) {
+            let markdown = res.data.Markdown;
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true
+            })
+        } else {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false
+            })
+        }
+        console.log(`phuc`, res);
     };
 
     handleOnChangeDecs = (event) => {
@@ -92,7 +114,7 @@ class ManageCenter extends Component {
     }
 
     render() {
-        console.log('phuc check ', this.state)
+        let { hasOldData } = this.state;
         return (
             <div className="manage-center-container">
                 <div className='manage-center-title'>
@@ -103,7 +125,7 @@ class ManageCenter extends Component {
                         <label>chon trung tam</label>
                         <Select
                             value={this.state.selectedOption}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeSelect}
                             options={this.state.listCenters}
                         />
                     </div>
@@ -122,13 +144,16 @@ class ManageCenter extends Component {
                         style={{ height: '500px' }}
                         renderHTML={text => mdParser.render(text)}
                         onChange={this.handleEditorChange}
+                        value={this.state.contentMarkdown}
                     />
                 </div>
                 <button onClick={() => this.handleSaveContentMarkdown()}
-                    className='save-content-center'>
-                    Luu
+                    className={hasOldData === true ? 'save-content-center' : 'create-content-center'} >
+                    {hasOldData === true ?
+                        <span>Lưu Thông tin</span> : <span>Tạo Thông Tin</span>}
+
                 </button>
-            </div>
+            </div >
         )
     }
 }
