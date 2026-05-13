@@ -48,6 +48,9 @@
             "handbook": "Handbook",
             "manage-handbook": "Handbook managent",
             "manage-center": "Center Managent"
+        },
+        "center": {
+            "manage-schedule": "Manage Center's schedule"
         }
     },
     "manage-user": {

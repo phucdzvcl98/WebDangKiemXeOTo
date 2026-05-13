@@ -48,6 +48,9 @@
             "handbook": "Cẩm nang",
             "manage-handbook": "Quản lý cẩm nang",
             "manage-center": "Quản lý trung tâm"
+        },
+        "center": {
+            "manage-schedule": "Quản lý kế hoạch đăng kiểm"
         }
     },
     "manage-user": {

@@ -13,7 +13,8 @@ import System from '../routes/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js';
 import CustomScrollbars from '../components/CustomScrollbars.js';
-import DetailCenter from './Own/Center/DetailCenter.js'
+import DetailCenter from './Own/Center/DetailCenter.js';
+import Center from '../routes/Center'
 
 class App extends Component {
 
@@ -46,6 +47,7 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={'/center/'} component={userIsAuthenticated(Center)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_CENTER} component={DetailCenter} />
                                 </Switch>
