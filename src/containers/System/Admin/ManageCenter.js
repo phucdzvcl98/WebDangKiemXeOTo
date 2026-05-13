@@ -169,7 +169,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchALLCenters: (id) => dispatch(actions.fetchALLCenters()),
+        fetchALLCenters: () => dispatch(actions.fetchALLCenters()),
         saveDetailCenter: (data) => dispatch(actions.saveDetailCenter(data))
     };
 };

@@ -71,5 +71,11 @@
     "homepage": {
         "outstanding-vehicle-inspection-center": "Trung tâm đăng kiểm nổi bật",
         "more-infor": "Xem thêm"
+    },
+    "manage-schedule": {
+        "title": "Quản lý lế hoạch đặt lịch của trung tâm",
+        "choose-center": "Chọn trung tâm",
+        "choose-date": "Chọn ngày",
+        "save": "Lưu"
     }
 }

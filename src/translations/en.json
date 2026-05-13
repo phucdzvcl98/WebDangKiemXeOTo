@@ -71,5 +71,11 @@
     "homepage": {
         "outstanding-vehicle-inspection-center": "Outstanding vehicle inspection center",
         "more-infor": "More infor"
+    },
+    "manage-schedule": {
+        "title": "Manage center's examination plan",
+        "choose-center": "Choose center",
+        "choose-date": "Choose date",
+        "save": "Save"
     }
 }
