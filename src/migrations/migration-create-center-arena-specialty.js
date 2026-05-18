@@ -2,17 +2,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('inspector_inspection_center_specialty', {
+        await queryInterface.createTable('center-arena-specialty', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            inspectorId: {
+            centerId: {
                 type: Sequelize.INTEGER
             },
-            inspection_centerId: {
+            arenaId: {
                 type: Sequelize.INTEGER
             },
             specialtyId: {
@@ -29,6 +29,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('inspector_inspection_center_specialty');
+        await queryInterface.dropTable('center-arena-specialty');
     }
 };

@@ -9,10 +9,10 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            customerId: {
+            ownId: {
                 type: Sequelize.INTEGER
             },
-            inspectorId: {
+            centerId: {
                 type: Sequelize.INTEGER
             },
             description: {

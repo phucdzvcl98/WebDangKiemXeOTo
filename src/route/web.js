@@ -2,6 +2,7 @@ import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import centerController from "../controllers/centerController";
+import ownController from "../controllers/ownController";
 
 let router = express.Router();
 
@@ -26,6 +27,12 @@ let initWebRoutes = (app) => {
     router.get('/api/get-all-centers', centerController.getAllCenters);
     router.post('/api/save-infor-centers', centerController.postInforCenter);
     router.get('/api/get-detail-center-by-id', centerController.getDetailCenterById);
+    router.post('/api/bulk-create-schedule', centerController.bulkCreateSchedule);
+    router.get('/api/get-schedule-center-by-date', centerController.getScheduleByDate);
+    router.get('/api/get-extra-infor-center-by-id', centerController.getExtraInforCenterById);
+    router.get('/api/get-profile-center-by-id', centerController.getProfileCenterById);
+
+    router.post('/api/own-book-appointment', ownController.postBookAppointment);
 
     return app.use("/", router);
 };

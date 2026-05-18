@@ -12,14 +12,14 @@ module.exports = {
             statusId: {
                 type: Sequelize.STRING
             },
-            inspectorId: {
+            centerId: {
                 type: Sequelize.INTEGER
             },
-            customerId: {
+            ownId: {
                 type: Sequelize.INTEGER
             },
             date: {
-                type: Sequelize.DATE
+                type: Sequelize.STRING
             },
             timeType: {
                 type: Sequelize.STRING

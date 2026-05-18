@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     History.init({
-        customerId: DataTypes.INTEGER,
-        inspectorId: DataTypes.INTEGER,
+        ownId: DataTypes.INTEGER,
+        centerId: DataTypes.INTEGER,
         description: DataTypes.TEXT,
         files: DataTypes.TEXT,
     }, {
