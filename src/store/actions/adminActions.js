@@ -301,3 +301,39 @@ export const fetchALLSheduleTime = () => {
     }
 }
 
+export const getRequiredCenterInfor = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.FETCH_REQUIRED_CENTER_INFOR_START })
+
+            let resPrice = await getAllCodeService("PRICE");
+            let resPayment = await getAllCodeService("PAYMENT");
+            let resProvince = await getAllCodeService("PROVINCE");
+            if (resPrice && resPrice.errCode === 0
+                && resPayment && resPayment.errCode === 0
+                && resProvince && resProvince.errCode === 0) {
+                let data = {
+                    resPrice: resPrice.data,
+                    resPayment: resPayment.data,
+                    resProvince: resProvince.data
+                }
+                dispatch(fetchRequiredCenterInforSuccess(data))
+            } else {
+                dispatch(fetchRequiredCenterInforFailed())
+            }
+        } catch (e) {
+            dispatch(fetchRequiredCenterInforFailed());
+            console.log('fetchGerderStart error', e)
+        }
+    }
+}
+
+export const fetchRequiredCenterInforSuccess = (allRequiredData) => ({
+    type: actionTypes.FETCH_REQUIRED_CENTER_INFOR_SUCCESS,
+    data: allRequiredData
+})
+
+export const fetchRequiredCenterInforFailed = () => ({
+    type: actionTypes.FETCH_REQUIRED_CENTER_INFOR_FAILED,
+})
+

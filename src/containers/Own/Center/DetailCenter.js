@@ -5,23 +5,29 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailCenter.scss';
 import { getDetailInforCenter } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
+import CenterSchedule from './CenterSchedule';
+import CenterExtraInfor from './CenterExtraInfor';
 
 class DetailCenter extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            detailCenter: {}
+            detailCenter: {},
+            currentCenterId: -1,
         }
     }
 
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
+            this.setState({
+                currentCenterId: id
+            })
             let res = await getDetailInforCenter(id);
             if (res && res.errCode === 0) {
                 this.setState({
-                    detailCenter: res.data
+                    detailCenter: res.data,
                 })
             }
         }
@@ -65,7 +71,14 @@ class DetailCenter extends Component {
                         </div>
                     </div>
                     <div className='schedule-center'>
-
+                        <div className='content-left'>
+                            <CenterSchedule
+                                centerIdFormParent={this.state.currentCenterId}
+                            />
+                        </div>
+                        <div className='content-right'>
+                            <CenterExtraInfor centerIdFromParent={this.state.currentCenterId} />
+                        </div>
                     </div>
                     <div className='detail-infor-center'>
                         {detailCenter && detailCenter.Markdown && detailCenter.Markdown.contentHTML

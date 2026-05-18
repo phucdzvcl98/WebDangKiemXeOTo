@@ -9,6 +9,8 @@ const initialState = {
     topCenters: [],
     allCenters: [],
     allSheduleTime: [],
+
+    allRequiredCenterInfor: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -107,6 +109,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
             state.allSheduleTime = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_REQUIRED_CENTER_INFOR_SUCCESS:
+            state.allRequiredCenterInfor = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_REQUIRED_CENTER_INFOR_FAILED:
+            state.allRequiredCenterInfor = [];
             return {
                 ...state
             }

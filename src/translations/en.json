@@ -77,5 +77,49 @@
         "choose-center": "Choose center",
         "choose-date": "Choose date",
         "save": "Save"
+    },
+    "own": {
+        "detail-center": {
+            "schedule": "Schedule",
+            "no-schedule": "The center doesnot have an appointment during this time, please choose another time!",
+            "choose": "Choose",
+            "book-free": " and book (free)"
+        },
+        "extra-infor-center": {
+            "text-address": "Address of examination",
+            "price": "Examination price:",
+            "detail": "See details",
+            "payment": "The patient can pay the cost in the form of:",
+            "hide-price": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Information to book a medical appointment",
+            "fullName": "Fullname",
+            "phoneNumber": "Phone number",
+            "email": "Email",
+            "address": "Address",
+            "reason": "Reasons for medical examination",
+            "birthday": "Date of birth",
+            "gender": "Gender",
+            "btnConfirm": "Confirm",
+            "btnCancel": "Cancel",
+            "priceBooking": "Free booking",
+            "price": "Price:"
+        }
+    },
+    "admin": {
+        "manage-center": {
+            "title": "Create more information center",
+            "select-center": "Select center",
+            "intro": "Introduction:",
+            "add": "Create infor",
+            "save": "Save infor",
+            "price": "Price",
+            "payment": "Payment",
+            "province": "Province",
+            "nameArena": "Arena's name",
+            "addressArena": "Arena's address",
+            "note": "Note"
+        }
     }
 }

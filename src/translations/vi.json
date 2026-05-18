@@ -77,5 +77,49 @@
         "choose-center": "Chọn trung tâm",
         "choose-date": "Chọn ngày",
         "save": "Lưu"
+    },
+    "own": {
+        "detail-center": {
+            "schedule": "Lịch kiểm",
+            "no-schedule": "Trung tâm không có lịch hẹn vào khoảng thời gian này, vui lòng chọn thời gian khác!",
+            "choose": "Chọn",
+            "book-free": " và đặt (miễn phí)"
+        },
+        "extra-infor-center": {
+            "text-address": "Đặt lịch đăng kiểm",
+            "price": "Giá đăng kiểm:",
+            "detail": "Xem chi tiết",
+            "payment": "Khách hàng có thể thanh toán chi phí bằng hình thức:",
+            "hide-price": "Ẩn bảng giá"
+        },
+        "booking-modal": {
+            "title": "Thông tin đặt lịch đăng kiểm",
+            "fullName": "Họ và tên",
+            "phoneNumber": "Số điện thoại",
+            "email": "Địa chỉ email",
+            "address": "Địa chỉ liên lạc",
+            "reason": "Lý do đăng kiểm",
+            "birthday": "Ngày sinh",
+            "gender": "Giới tính",
+            "btnConfirm": "Xác nhận",
+            "btnCancel": "Hủy",
+            "priceBooking": "Miễn phí đặt lịch",
+            "price": "Giá đăng kiểm:"
+        }
+    },
+    "admin": {
+        "manage-center": {
+            "title": "Tạo thêm thông tin trung tâm",
+            "select-center": "Chọn trung tâm",
+            "intro": "Thông tin giới thiệu:",
+            "add": "Tạo thông tin",
+            "save": "Lưu thông tin",
+            "price": "Giá đăng kiểm",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "nameArena": "Tên khu vực",
+            "addressArena": "Địa chỉ khu vực",
+            "note": "Ghi chú"
+        }
     }
 }

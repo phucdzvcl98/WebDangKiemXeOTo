@@ -4,10 +4,13 @@ import './ManageSchedule.scss';
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from "../../../store/actions";
-import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
+import { CRUD_ACTIONS, LANGUAGES, dateFormat } from "../../../utils";
 import DatePicker from '../../../components/Input/DatePicker';
 import moment, { lang } from 'moment';
 import { range } from 'lodash';
+import { toast } from "react-toastify";
+import _ from 'lodash';
+import { saveBulkScheduleCenter } from '../../../services/userService'
 
 class ManageSchedule extends Component {
     constructor(props) {
@@ -17,12 +20,12 @@ class ManageSchedule extends Component {
         this.state = {
             // contentMarkdown: '',
             // contentHTML: '',
-            selectedCenter: '',
+            selectedCenter: {},
             // description: '',
             listCenters: [],
             // hasOldData: false
-            currentDate: currentDate,
-            rangeTime: []
+            currentDate: '',
+            rangeTime: [],
         }
     }
 
@@ -39,8 +42,16 @@ class ManageSchedule extends Component {
             })
         }
         if (prevProps.allSheduleTime !== this.props.allSheduleTime) {
+            let data = this.props.allSheduleTime;
+            if (data && data.length > 0) {
+                // data.map(item => {
+                //     item.isSelected = false;
+                //     return item;
+                // })
+                data = data.map(item => ({ ...item, isSelected: false }))
+            }
             this.setState({
-                rangeTime: this.props.allSheduleTime
+                rangeTime: data
             })
         }
     }
@@ -90,10 +101,68 @@ class ManageSchedule extends Component {
         })
     }
 
+    handClickBtnTime = (time) => {
+        let { rangeTime } = this.state;
+        if (rangeTime && rangeTime.length > 0) {
+            let { rangeTime } = this.state;
+            rangeTime = rangeTime.map(item => {
+                if (item.id === time.id) item.isSelected = !item.isSelected;
+                return item;
+            })
+            this.setState({
+                rangeTime: rangeTime
+            })
+        }
+    }
+
+    handleSaveSchedule = async () => {
+        let { rangeTime, selectedCenter, currentDate } = this.state;
+        let result = [];
+        if (!currentDate) {
+            toast.error("Invalid date!");
+            return;
+        }
+        if (selectedCenter && _.isEmpty(selectedCenter)) {
+            toast.error("Invalid seleted center!");
+            return;
+        }
+        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        //  = moment(currentDate).unix();
+        let formatedDate = new Date(currentDate).getTime();
+
+
+        if (rangeTime && rangeTime.length > 0) {
+            let selectedTime = rangeTime.filter(item => item.isSelected === true);
+            if (selectedTime && selectedTime.length > 0) {
+                selectedTime.map((schedule, index) => {
+                    let object = {};
+                    object.centerId = selectedCenter.value;
+                    object.date = formatedDate;
+                    object.timeType = schedule.keyMap;
+                    result.push(object)
+                })
+            } else {
+                toast.error("Invalid seleted time!");
+                return;
+            }
+        }
+        let res = await saveBulkScheduleCenter({
+            arrSchedule: result,
+            centerId: selectedCenter.value,
+            formatedDate: formatedDate,
+        })
+        if (res && res.errCode === 0) {
+            toast.success("Save Infor succeed!");
+        } else {
+            toast.error("error saveBulkScheduleCenter");
+            console.log('error saveBulkScheduleCenter>>>res:', res)
+        }
+
+    }
     render() {
-        console.log('phuc check state', this.state)
         let { rangeTime } = this.state;
         let { language } = this.props;
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
         return (
             <div className='manage-schedule-container'>
                 <div className='m-s-title'>
@@ -114,15 +183,21 @@ class ManageSchedule extends Component {
                             <DatePicker
                                 onChange={this.handleChangeDatePicker}
                                 className='form-control'
-                                value={this.state.currentDate[0]}
-                                minDate={new Date()}
+                                value={this.state.currentDate}
+                                minDate={yesterday}
                             />
                         </div>
                         <div className='col-12 pick-hour-container'>
                             {rangeTime && rangeTime.length > 0 &&
                                 rangeTime.map((item, index) => {
                                     return (
-                                        <button className='btn btn-schedule' key={index}>
+                                        <button
+                                            className={item.isSelected === true
+                                                ? 'btn btn-schedule active' : 'btn btn-schedule'}
+
+                                            key={index}
+                                            onClick={() => this.handClickBtnTime(item)}
+                                        >
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                         </button>
                                     )
@@ -130,11 +205,13 @@ class ManageSchedule extends Component {
                             }
                         </div>
                         <div className='col-12'>
-                            <button className='btn btn-primary btn-save-schedule'><FormattedMessage id='manage-schedule.save' /></button>
+                            <button onClick={() => this.handleSaveSchedule()} className='btn btn-primary btn-save-schedule'>
+                                <FormattedMessage id='manage-schedule.save' />
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }
