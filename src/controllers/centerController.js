@@ -109,6 +109,36 @@ let getProfileCenterById = async (req, res) => {
         })
     }
 }
+let getListOwnForCenter = async (req, res) => {
+    try {
+        let infor = await centerService.getListOwnForCenter(req.query.centerId, req.query.date);
+        return res.status(200).json(
+            infor
+        )
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from the server'
+        })
+    }
+}
+
+let sendRemedy = async (req, res) => {
+    try {
+        let infor = await centerService.sendRemedy(req.body);
+        return res.status(200).json(
+            infor
+        )
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from the server'
+        })
+    }
+}
+
 module.exports = {
     getTopCenterHome: getTopCenterHome,
     getAllCenters: getAllCenters,
@@ -117,5 +147,7 @@ module.exports = {
     bulkCreateSchedule: bulkCreateSchedule,
     getScheduleByDate: getScheduleByDate,
     getExtraInforCenterById: getExtraInforCenterById,
-    getProfileCenterById: getProfileCenterById
+    getProfileCenterById: getProfileCenterById,
+    getListOwnForCenter: getListOwnForCenter,
+    sendRemedy: sendRemedy
 }

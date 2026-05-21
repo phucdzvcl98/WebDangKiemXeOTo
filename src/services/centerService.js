@@ -1,7 +1,8 @@
 import { where } from "sequelize";
 import db from "../models/index";
 require('dotenv').config();
-import _, { attempt } from 'lodash';
+import _ from 'lodash';
+import emailService from '../services/emailService'
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
@@ -55,20 +56,35 @@ let getAllCenters = () => {
     })
 }
 
+let checkRequiredFields = (inputData) => {
+    let arrFields = ['centerId', 'contentHTML', 'contentMarkdown', 'action',
+        'selectedPrice', 'selectedPayment', 'selectedProvince', 'nameArena',
+        'addressArena', 'note', 'specialtyId'
+    ]
+    let isValid = true;
+    let element = '';
+    for (let i = 0; i < arrFields.length; i++) {
+        if (!inputData[arrFields[i]]) {
+            isValid = false;
+            element = arrFields[i]
+            break;
+        }
+    }
+    return {
+        isValid: isValid,
+        element: element
+    }
+}
+
 let saveDetailInforCenter = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputData.centerId
-                || !inputData.contentHTML
-                || !inputData.contentMarkdown || !inputData.action
-                || !inputData.selectedPrice || !inputData.selectedPayment
-                || !inputData.selectProvince
-                || !inputData.nameArena || !inputData.addressArena
-                || !inputData.note
-            ) {
+            let checkObj = checkRequiredFields(inputData);
+            if (checkObj.isValid === false) {
+
                 resolve({
                     errCode: -1,
-                    errMessage: 'Missing parament'
+                    errMessage: `Missing parament: ${checkObj.element}`
                 })
             } else {
                 if (inputData.action === 'CREATE') {
@@ -103,21 +119,26 @@ let saveDetailInforCenter = (inputData) => {
                 if (centerInfor) {
                     centerInfor.centerId = inputData.centerId;
                     centerInfor.priceId = inputData.selectedPrice;
-                    centerInfor.provinceId = inputData.selectProvince;
+                    centerInfor.provinceId = inputData.selectedProvince;
                     centerInfor.paymentId = inputData.selectedPayment;
                     centerInfor.nameArena = inputData.nameArena;
                     centerInfor.addressArena = inputData.addressArena;
                     centerInfor.note = inputData.note;
+                    centerInfor.specialtyId = inputData.specialtyId;
+                    centerInfor.arenaId = inputData.arenaId;
+
                     await centerInfor.save()
                 } else {
                     await db.Center_Infor.create({
                         centerId: inputData.centerId,
-                        priceId: inputData.price,
-                        provinceId: inputData.province,
-                        paymentId: inputData.payment,
+                        priceId: inputData.selectedPrice,
+                        provinceId: inputData.selectedProvince,
+                        paymentId: inputData.selectedPayment,
                         nameArena: inputData.nameArena,
                         addressArena: inputData.addressArena,
                         note: inputData.note,
+                        specialtyId: inputData.specialtyId,
+                        arenaId: inputData.arenaId,
                     })
                 }
 
@@ -248,6 +269,8 @@ let getScheduleByDate = (centerId, date) => {
                     },
                     include: [
                         { model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] },
+
+                        { model: db.User, as: 'centerData', attributes: ['firstName', 'lastName'] },
                     ],
                     raw: false,
                     nest: true
@@ -301,7 +324,7 @@ let getExtraInforCenterById = (idInput) => {
             }
         } catch (e) {
             reject(e);
-            console.log(req.query)
+
         }
     })
 }
@@ -362,6 +385,84 @@ let getProfileCenterById = (inputId) => {
         }
     })
 }
+let getListOwnForCenter = (centerId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!centerId || !date) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter'
+                })
+            } else {
+                let data = await db.Booking.findAll({
+                    where: {
+                        statusId: 'S2',
+                        centerId: centerId,
+                        date: date
+                    },
+                    include: [
+                        {
+                            model: db.User, as: 'ownData',
+                            attributes: ['email', 'firstName', 'address', 'gender'],
+                            include: [
+                                { model: db.Allcode, as: 'genderData', attributes: ['valueEn', 'valueVi'] },
+                            ]
+
+                        },
+                        {
+                            model: db.Allcode, as: 'timeTypeDataOwn', attributes: ['valueEn', 'valueVi']
+                        }
+                    ],
+                    raw: false,
+                    nest: true
+                })
+
+                resolve({
+                    errCode: 0,
+                    data
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let sendRemedy = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.email || !data.centerId || !data.ownId || !data.timeType || !data.imgBase64) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters'
+                })
+            } else {
+                let appointment = await db.Booking.findOne({
+                    where: {
+                        centerId: data.centerId,
+                        ownId: data.ownId,
+                        timeType: data.timeType,
+                        statusId: 'S2'
+                    },
+                    raw: false
+                })
+                if (appointment) {
+                    appointment.statusId = 'S3';
+                    await appointment.save()
+                }
+                await emailService.sendAttachment(data);
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'ok'
+                })
+            }
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
     getTopCenterHome: getTopCenterHome,
     getAllCenters: getAllCenters,
@@ -370,5 +471,7 @@ module.exports = {
     bulkCreateSchedule: bulkCreateSchedule,
     getScheduleByDate: getScheduleByDate,
     getExtraInforCenterById: getExtraInforCenterById,
-    getProfileCenterById: getProfileCenterById
+    getProfileCenterById: getProfileCenterById,
+    getListOwnForCenter: getListOwnForCenter,
+    sendRemedy: sendRemedy
 }

@@ -16,8 +16,10 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.INTEGER
             },
-            centerId: {
-                allowNull: false,
+            specialtyId: {
+                type: Sequelize.INTEGER
+            },
+            arenaId: {
                 type: Sequelize.INTEGER
             },
             priceId: {

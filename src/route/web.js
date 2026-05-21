@@ -3,6 +3,8 @@ import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import centerController from "../controllers/centerController";
 import ownController from "../controllers/ownController";
+import specialtyController from "../controllers/specialtyController";
+import arenaController from "../controllers/arenaController"
 
 let router = express.Router();
 
@@ -32,7 +34,19 @@ let initWebRoutes = (app) => {
     router.get('/api/get-extra-infor-center-by-id', centerController.getExtraInforCenterById);
     router.get('/api/get-profile-center-by-id', centerController.getProfileCenterById);
 
+    router.get('/api/get-list-own-for-center', centerController.getListOwnForCenter);
+    router.post('/api/send-remedy', centerController.sendRemedy);
+
     router.post('/api/own-book-appointment', ownController.postBookAppointment);
+    router.post('/api/verify-book-appointment', ownController.postVerifyBookAppointment);
+
+    router.post('/api/create-new-specialty', specialtyController.createSpecialty);
+    router.get('/api/get-specialty', specialtyController.getAllSpecialty);
+    router.get('/api/get-detail-specialty-by-id', specialtyController.getDetailSpecialtyById);
+
+    router.post('/api/create-new-arena', arenaController.createArena);
+    router.get('/api/get-arena', arenaController.getAllArena);
+    router.get('/api/get-detail-arena-by-id', arenaController.getDetailArenaById);
 
     return app.use("/", router);
 };
