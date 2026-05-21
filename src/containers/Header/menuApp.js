@@ -21,6 +21,9 @@ export const adminMenu = [
             { //quản lý đặt lịch đăng kiểm
                 name: 'menu.center.manage-schedule', link: '/center/manage-schedule'
             },
+            { //quản lý khách đặt lịch đăng kiểm
+                name: 'menu.center.manage-own', link: '/center/manage-own'
+            },
         ]
     },
     { //quản lý khu vực

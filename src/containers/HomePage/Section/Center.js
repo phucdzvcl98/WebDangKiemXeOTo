@@ -6,7 +6,7 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils';
 import { withRouter } from 'react-router';
 
-class TrungTamDangKiem extends Component {
+class Center extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -34,7 +34,7 @@ class TrungTamDangKiem extends Component {
         let { language } = this.props;
         // arrCenters = arrCenters.concat(arrCenters).concat(arrCenters)
         return (
-            <div className=" section-share section-trung-tam-dang-kiem">
+            <div className=" section-share section-center">
                 <div className="section-container">
                     <div className="section-header">
                         <span className='title-section'><FormattedMessage id="homepage.outstanding-vehicle-inspection-center" /></span>
@@ -56,13 +56,13 @@ class TrungTamDangKiem extends Component {
                                         <div className="section-customize" key={index} onClick={() => this.handleViewDetailCenter(item)}>
                                             <div className='customize-border'>
                                                 <div className='outer-bg'>
-                                                    <div className="bg-image section-trung-tam-dang-kiem"
+                                                    <div className="bg-image section-center"
                                                         style={{ backgroundImage: `url(${imageBase64})` }}
                                                     />
                                                 </div>
                                                 <div className='position text-center' >
                                                     <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
-                                                    <div>Hà Nội</div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TrungTamDangKiem));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Center));

@@ -50,7 +50,8 @@
             "manage-center": "Center Managent"
         },
         "center": {
-            "manage-schedule": "Manage Center's schedule"
+            "manage-schedule": "Manage Center's schedule",
+            "manage-own": "Manage Center's Own"
         }
     },
     "manage-user": {
@@ -70,7 +71,8 @@
     },
     "homepage": {
         "outstanding-vehicle-inspection-center": "Outstanding vehicle inspection center",
-        "more-infor": "More infor"
+        "more-infor": "More infor",
+        "specialty-popular": "Popular specialties"
     },
     "manage-schedule": {
         "title": "Manage center's examination plan",
@@ -89,7 +91,7 @@
             "text-address": "Address of examination",
             "price": "Examination price:",
             "detail": "See details",
-            "payment": "The patient can pay the cost in the form of:",
+            "payment": "The own can pay the cost in the form of:",
             "hide-price": "Hide price list"
         },
         "booking-modal": {
@@ -119,7 +121,9 @@
             "province": "Province",
             "nameArena": "Arena's name",
             "addressArena": "Arena's address",
-            "note": "Note"
+            "note": "Note",
+            "specialty": "Specialty",
+            "select-arena": "Arena"
         }
     }
 }

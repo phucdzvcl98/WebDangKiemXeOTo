@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
-import DichVu from './Section/DichVu';
-import KhuVuc from './Section/KhuVuc';
-import TrungTamDangKiem from './Section/TrungTamDangKiem';
+import Specialty from './Section/Specialty';
+import MedicalFacility from './Section/MedicalFacility';
+import Center from './Section/Center';
 import CamNang from './Section/CamNang';
 import About from './Section/About';
 import HomeFooter from './HomeFooter';
@@ -24,9 +24,9 @@ class HomePage extends Component {
         return (
             <div>
                 <HomeHeader isShowBanner={true} />
-                <DichVu settings={settings} />
-                <KhuVuc settings={settings} />
-                <TrungTamDangKiem settings={settings} />
+                <Specialty settings={settings} />
+                <MedicalFacility settings={settings} />
+                <Center settings={settings} />
                 <CamNang settings={settings} />
                 <About />
                 <HomeFooter />

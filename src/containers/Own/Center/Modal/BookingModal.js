@@ -12,8 +12,9 @@ import Select from 'react-select';
 import { postOwnBookAppointment } from '../../../../services/userService';
 import { toast } from "react-toastify";
 import { selectFilter } from 'react-bootstrap-table2-filter';
+import moment from 'moment';
 
-class DefaultClass extends Component {
+class BookingModal extends Component {
 
     constructor(props) {
         super(props);
@@ -93,10 +94,41 @@ class DefaultClass extends Component {
         this.setState({ selectedGender: selectedOption });
     }
 
+    buildTimeBooking = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let time = language === LANGUAGES.VI ?
+                dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+
+            let date = language === LANGUAGES.VI ?
+                moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                :
+                moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY');
+
+            return `${time} - ${date}`
+        }
+        return ''
+    }
+
+    buildCenterName = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let name = language === LANGUAGES.VI ?
+                `${dataTime.centerData.lastName} ${dataTime.centerData.firstName}`
+                :
+                `${dataTime.centerData.firstName} ${dataTime.centerData.lastName}`
+
+            return name;
+        }
+        return ''
+    }
+
     handleConfirmBooking = async () => {
 
 
         let date = new Date(this.state.birthday).getTime();
+        let timeString = this.buildTimeBooking(this.props.dataTime);
+        let centerName = this.buildCenterName(this.props.dataTime);
 
         let res = await postOwnBookAppointment({
             fullName: this.state.fullName,
@@ -104,22 +136,16 @@ class DefaultClass extends Component {
             email: this.state.email,
             address: this.state.address,
             reason: this.state.reason,
-            date: date,
+            date: this.props.dataTime.date,
+            birthday: date,
             selectedGender: this.state.selectedGender.value,
             centerId: this.state.centerId,
             timeType: this.state.timeType,
+            language: this.props.language,
+            timeString: timeString,
+            centerName: centerName
         })
-        console.log('CHECK DATA: ', {
-            fullName: this.state.fullName,
-            phoneNumber: this.state.fullName,
-            email: this.state.email,
-            address: this.state.address,
-            reason: this.state.reason,
-            date: date,
-            gender: this.state.selectedGender.value,
-            centerId: this.state.centerId,
-            timeType: this.state.timeType,
-        });
+
         if (res && res.errCode === 0) {
             toast.success('Booking a new appointment succeed!')
             this.props.closeBookingClose();
@@ -161,6 +187,8 @@ class DefaultClass extends Component {
                                 centerId={centerId}
                                 isShowDescriptionCenter={false}
                                 dataTime={dataTime}
+                                isShowLinkDetail={false}
+                                isShowPrice={true}
                             />
                         </div>
                         <div className='price'>
@@ -256,4 +284,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultClass);
+export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);

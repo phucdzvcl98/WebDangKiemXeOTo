@@ -73,7 +73,7 @@ class DetailCenter extends Component {
                     <div className='schedule-center'>
                         <div className='content-left'>
                             <CenterSchedule
-                                centerIdFormParent={this.state.currentCenterId}
+                                centerIdFromParent={this.state.currentCenterId}
                             />
                         </div>
                         <div className='content-right'>

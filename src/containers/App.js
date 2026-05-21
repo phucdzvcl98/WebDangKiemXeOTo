@@ -14,7 +14,10 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js';
 import CustomScrollbars from '../components/CustomScrollbars.js';
 import DetailCenter from './Own/Center/DetailCenter.js';
-import Center from '../routes/Center'
+import Center from '../routes/Center';
+import VerifyEmail from './Own/VerifyEmail.js';
+import DetailSpecialty from './Own/Specialty/DetailSpecialty.js';
+import DetailArena from './Own/Arena/DetailArena.js';
 
 class App extends Component {
 
@@ -50,6 +53,9 @@ class App extends Component {
                                     <Route path={'/center/'} component={userIsAuthenticated(Center)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_CENTER} component={DetailCenter} />
+                                    <Route path={path.DETAIL_SPCIALTY} component={DetailSpecialty} />
+                                    <Route path={path.DETAIL_ARENA} component={DetailArena} />
+                                    <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                                 </Switch>
                             </CustomScrollbars>
                         </div>

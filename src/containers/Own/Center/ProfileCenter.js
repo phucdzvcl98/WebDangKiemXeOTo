@@ -8,8 +8,9 @@ import { isParameter } from 'typescript';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
-class DefaultClass extends Component {
+class ProfileCenter extends Component {
 
     constructor(props) {
         super(props);
@@ -68,7 +69,10 @@ class DefaultClass extends Component {
 
     render() {
         let { dataProfile } = this.state;
-        let { language, isShowDescriptionCenter, dataTime } = this.props;
+        let { language, isShowDescriptionCenter,
+            dataTime, isShowPrice, isShowLinkDetail,
+            centerId
+        } = this.props;
 
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {
@@ -107,27 +111,34 @@ class DefaultClass extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='price'>
-                    <FormattedMessage id='own.booking-modal.price' />
-                    {dataProfile && dataProfile.Center_Infor && language === LANGUAGES.VI &&
-                        <NumberFormat
-                            className='currency'
-                            value={dataProfile.Center_Infor.priceTypeData.valueVi}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            suffix='VND'
-                        />
-                    }
-                    {dataProfile && dataProfile.Center_Infor && language === LANGUAGES.EN &&
-                        <NumberFormat
-                            className='currency'
-                            value={dataProfile.Center_Infor.priceTypeData.valueEn}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            suffix='$'
-                        />
-                    }
-                </div>
+                {isShowLinkDetail === true &&
+                    <div className='view-detail-center'>
+                        <Link to={`/detail-center/${centerId}`}>Xem thêm</Link>
+                    </div>
+                }
+                {isShowPrice === true &&
+                    <div className='price'>
+                        <FormattedMessage id='own.booking-modal.price' />
+                        {dataProfile && dataProfile.Center_Infor && language === LANGUAGES.VI &&
+                            <NumberFormat
+                                className='currency'
+                                value={dataProfile.Center_Infor.priceTypeData.valueVi}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                suffix='VND'
+                            />
+                        }
+                        {dataProfile && dataProfile.Center_Infor && language === LANGUAGES.EN &&
+                            <NumberFormat
+                                className='currency'
+                                value={dataProfile.Center_Infor.priceTypeData.valueEn}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                suffix='$'
+                            />
+                        }
+                    </div>
+                }
             </div>
         );
     }
@@ -144,4 +155,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultClass);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileCenter);

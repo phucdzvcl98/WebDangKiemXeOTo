@@ -38,11 +38,11 @@
 }
 
 .section-share {
-    &.section-dich-vu {
+    &.section-specialty {
         background: #f5f5f5;
     }
 
-    &.section-trung-tam-dang-kiem {
+    &.section-center {
         background: #f5f5f5;
     }
 
@@ -65,60 +65,38 @@
                 border-radius: 10px;
                 overflow: hidden;
 
-                &.section-dich-vu {
-                    &.an-toan {
-                        background-image: url('../../assets/dich-vu/antoankythuat.png');
-                    }
+                &.section-specialty {}
 
-                    &.khi-thai {
-                        background-image: url('../../assets/dich-vu/kiemdinhkhithai.png');
-                    }
+                // &.section-khu-vuc {
+                //     &.hanoi {
+                //         background-image: url('../../assets/khu-vuc/hanoi.png');
+                //     }
 
-                    &.online {
-                        background-image: url('../../assets/dich-vu/datlichdangkiemonline.png');
-                    }
+                //     &.tphcm {
+                //         background-image: url('../../assets/khu-vuc/tphcm.png');
+                //     }
 
-                    &.tai-nha {
-                        background-image: url('../../assets/dich-vu/dangkiemtainha.png');
-                    }
+                //     &.danang {
+                //         background-image: url('../../assets/khu-vuc/danang.png');
+                //     }
 
-                    &.ktra-xe {
-                        background-image: url('../../assets/dich-vu/kiemtraxetruocdangkiem.png');
-                    }
+                //     &.haiphong {
+                //         background-image: url('../../assets/khu-vuc/haiphong.png');
+                //     }
 
-                    &.tu-van {
-                        background-image: url('../../assets/dich-vu/tuvan.png');
-                    }
-                }
+                //     &.cantho {
+                //         background-image: url('../../assets/khu-vuc/cantho.png');
+                //     }
 
-                &.section-khu-vuc {
-                    &.hanoi {
-                        background-image: url('../../assets/khu-vuc/hanoi.png');
-                    }
+                //     &.binhduong {
+                //         background-image: url('../../assets/khu-vuc/binhduong.png');
+                //     }
 
-                    &.tphcm {
-                        background-image: url('../../assets/khu-vuc/tphcm.png');
-                    }
+                // }
 
-                    &.danang {
-                        background-image: url('../../assets/khu-vuc/danang.png');
-                    }
+                &.section-medical-facility {}
 
-                    &.haiphong {
-                        background-image: url('../../assets/khu-vuc/haiphong.png');
-                    }
-
-                    &.cantho {
-                        background-image: url('../../assets/khu-vuc/cantho.png');
-                    }
-
-                    &.binhduong {
-                        background-image: url('../../assets/khu-vuc/binhduong.png');
-                    }
-
-                }
-
-                &.section-trung-tam-dang-kiem {
+                &.section-center {
                     width: 120px;
                     height: 120px;
                     border-radius: 50%;
@@ -199,8 +177,8 @@
 
 }
 
-.section-trung-tam-dang-kiem {
-    .trung-tam-dang-kiem-bg {
+.section-center {
+    .center-bg {
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;

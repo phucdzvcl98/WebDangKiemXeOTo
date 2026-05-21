@@ -2,7 +2,8 @@ import actionTypes from './actionTypes';
 import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService, getTopCenterHomeService,
-    getAllCenters, saveDetailCenterService
+    getAllCenters, saveDetailCenterService,
+    getAllSpecialty, getAllArena
 } from '../../services/userService';
 import { toast } from "react-toastify";
 
@@ -255,6 +256,7 @@ export const fetchALLCenters = () => {
 export const saveDetailCenter = (data) => {
     return async (dispatch, getState) => {
         try {
+            console.log('DATA SEND: ', data)
             let res = await saveDetailCenterService(data);
             if (res && res.errCode === 0) {
                 toast.success("Save infor Detail Center succed!");
@@ -309,13 +311,20 @@ export const getRequiredCenterInfor = () => {
             let resPrice = await getAllCodeService("PRICE");
             let resPayment = await getAllCodeService("PAYMENT");
             let resProvince = await getAllCodeService("PROVINCE");
+            let resSpecialty = await getAllSpecialty();
+            let resArena = await getAllArena();
             if (resPrice && resPrice.errCode === 0
                 && resPayment && resPayment.errCode === 0
-                && resProvince && resProvince.errCode === 0) {
+                && resProvince && resProvince.errCode === 0
+                && resSpecialty && resSpecialty.errCode === 0
+                && resArena && resArena.errCode === 0
+            ) {
                 let data = {
                     resPrice: resPrice.data,
                     resPayment: resPayment.data,
-                    resProvince: resProvince.data
+                    resProvince: resProvince.data,
+                    resSpecialty: resSpecialty.data,
+                    resArena: resArena.data
                 }
                 dispatch(fetchRequiredCenterInforSuccess(data))
             } else {

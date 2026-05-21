@@ -12,6 +12,7 @@ import Select from 'react-select';
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
 import { saveDetailCenterService } from '../../../services/userService';
 import { getDetailInforCenter } from "../../../services/userService"
+import Specialty from '../../HomePage/Section/Specialty';
 
 
 const mdParser = new MarkdownIt();
@@ -31,11 +32,19 @@ class ManageCenter extends Component {
             listPrice: [],
             listPayment: [],
             listProvince: [],
-            selectPrice: '',
-            selectPayment: '',
+            listArena: [],
+            listSpecialty: [],
+
+            selectedPrice: '',
+            selectedPayment: '',
+            selectedProvince: '',
+            selectedArena: '',
+            selectedSpecialty: '',
+
             nameArena: '',
             addressArena: '',
-            note: ''
+            note: '',
+            specialtyId: ''
         }
     }
 
@@ -79,6 +88,23 @@ class ManageCenter extends Component {
                 })
             }
 
+            if (type === 'SPECIALTY') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    object.label = item.name;
+                    object.value = item.id;
+                    result.push(object)
+                })
+            }
+
+            if (type === 'ARENA') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    object.label = item.name;
+                    object.value = item.id;
+                    result.push(object)
+                })
+            }
         }
         return result;
     }
@@ -92,17 +118,18 @@ class ManageCenter extends Component {
         }
 
         if (prevProps.allRequiredCenterInfor !== this.props.allRequiredCenterInfor) {
-            let { resPayment, resPrice, resProvince } = this.props.allRequiredCenterInfor;
+            let { resPayment, resPrice, resProvince, resSpecialty, resArena } = this.props.allRequiredCenterInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
-
-            console.log('phuc:data new:', dataSelectPrice, dataSelectPayment, dataSelectProvince);
-
+            let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY');
+            let dataSelectArena = this.buildDataInputSelect(resArena, 'ARENA');
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
+                listSpecialty: dataSelectSpecialty,
+                listArena: dataSelectArena
             })
         }
         if (prevProps.language !== this.props.language) {
@@ -130,6 +157,8 @@ class ManageCenter extends Component {
 
     handleSaveContentMarkdown = () => {
         let { hasOldData } = this.state;
+        console.log('selectedArena: ', this.state.selectedArena);
+        console.log('listArena: ', this.state.listArena);
         this.props.saveDetailCenter({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
@@ -139,33 +168,38 @@ class ManageCenter extends Component {
 
             selectedPrice: this.state.selectedPrice.value,
             selectedPayment: this.state.selectedPayment.value,
-            selectProvince: this.state.selectProvince.value,
+            selectedProvince: this.state.selectedProvince.value,
             nameArena: this.state.nameArena,
             addressArena: this.state.addressArena,
             note: this.state.note,
+            arenaId: this.state.selectedArena && this.state.selectedArena.value ? this.state.selectedArena.value : '',
+            specialtyId: this.state.selectedSpecialty.value
         })
 
     }
 
     handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption });
-        let { listPayment, listPrice, listProvince } = this.state;
+        let { listPayment, listPrice, listProvince, listSpecialty, listArena } = this.state;
 
         let res = await getDetailInforCenter(selectedOption.value);
         if (res && res.errCode === 0 && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
-            let addressArena = '', nameArena = '', note = '',
-                paymentId = '', priceId = '', provinceId = '',
-                selectedPayment = '', selectedPrice = '', selectProvince = '';
+            let addressArena = '', nameArena = '', note = '', arenaId = '', selectedArena = '',
+                paymentId = '', priceId = '', provinceId = '', specialtyId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '',
+                selectedSpecialty = '';
 
             if (res.data.Center_Infor) {
                 addressArena = res.data.Center_Infor.addressArena;
                 nameArena = res.data.Center_Infor.nameArena;
                 note = res.data.Center_Infor.note;
-                paymentId = res.data.Center_Infor.note;
+                paymentId = res.data.Center_Infor.paymentId;
                 priceId = res.data.Center_Infor.priceId;
                 provinceId = res.data.Center_Infor.provinceId;
+                specialtyId = res.data.Center_Infor.specialtyId;
+                arenaId = res.data.Center_Infor.arenaId;
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -173,8 +207,14 @@ class ManageCenter extends Component {
                 selectedPrice = listPrice.find(item => {
                     return item && item.value === priceId
                 })
-                selectProvince = listProvince.find(item => {
+                selectedProvince = listProvince.find(item => {
                     return item && item.value === provinceId
+                })
+                selectedSpecialty = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
+                })
+                selectedArena = listArena.find(item => {
+                    return item && item.value === arenaId
                 })
             }
 
@@ -188,7 +228,9 @@ class ManageCenter extends Component {
                 note: note,
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
-                selectProvince: selectProvince
+                selectedProvince: selectedProvince,
+                selectedSpecialty: selectedSpecialty,
+                selectedArena: selectedArena
             })
         } else {
             this.setState({
@@ -198,7 +240,12 @@ class ManageCenter extends Component {
                 hasOldData: false,
                 addressArena: '',
                 nameArena: '',
-                note: ''
+                note: '',
+                selectedPayment: '',
+                selectedPrice: '',
+                selectedProvince: '',
+                selectedSpecialty: '',
+                selectedArena: ''
             })
         }
     };
@@ -270,11 +317,11 @@ class ManageCenter extends Component {
                     <div className='col-4 form-group'>
                         <label><FormattedMessage id='admin.manage-center.province' /></label>
                         <Select
-                            value={this.state.selectProvince}
+                            value={this.state.selectedProvince}
                             onChange={this.handleChangeSelectCenterInfor}
                             options={this.state.listProvince}
                             placeholder={<FormattedMessage id='admin.manage-center.province' />}
-                            name="selectProvince"
+                            name="selectedProvince"
                         />
                     </div>
                     <div className='col-4 form-group'>
@@ -297,9 +344,33 @@ class ManageCenter extends Component {
                     </div>
                 </div>
 
+                <div className='row'>
+                    <div className='col-4 form-group'>
+                        <label><FormattedMessage id='admin.manage-center.specialty' /></label>
+                        <Select
+                            value={this.state.selectedSpecialty}
+                            options={this.state.listSpecialty}
+                            placeholder={<FormattedMessage id='admin.manage-center.specialty' />}
+                            onChange={this.handleChangeSelectCenterInfor}
+                            name='selectedSpecialty'
+                        />
+                    </div>
+                    <div className='col-4 form-group'>
+                        <label><FormattedMessage id='admin.manage-center.select-arena' /></label>
+                        <Select
+                            value={this.state.selectedArena}
+                            options={this.state.listArena}
+                            placeholder={<FormattedMessage id='admin.manage-center.select-arena' />}
+                            onChange={this.handleChangeSelectCenterInfor}
+                            name='selectedArena'
+                        // isDisabled={true}
+                        />
+                    </div>
+                </div>
+
                 <div className='manage-center-editor'>
                     <MdEditor
-                        style={{ height: '500px' }}
+                        style={{ height: '300px' }}
                         renderHTML={text => mdParser.render(text)}
                         onChange={this.handleEditorChange}
                         value={this.state.contentMarkdown}

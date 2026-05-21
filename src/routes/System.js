@@ -5,6 +5,8 @@ import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/Admin/UserRedux';
 import Header from '../containers/Header/Header';
 import ManageCenter from '../containers/System/Admin/ManageCenter';
+import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+import ManageArena from '../containers/System/Arena/ManageArena';
 
 class System extends Component {
     render() {
@@ -18,6 +20,9 @@ class System extends Component {
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-center" component={ManageCenter} />
+                            <Route path="/system/manage-specialty" component={ManageSpecialty} />
+                            <Route path="/system/manage-arena" component={ManageArena} />
+
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
                     </div>

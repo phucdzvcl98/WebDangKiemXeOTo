@@ -21,7 +21,14 @@ class CenterExtraInfor extends Component {
     }
 
     async componentDidMount() {
-
+        if (this.props.centerIdFromParent) {
+            let res = await getExtraInforCenterById(this.props.centerIdFromParent);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    extraInfor: res.data
+                })
+            }
+        }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -135,7 +142,7 @@ class CenterExtraInfor extends Component {
                                 {extraInfor && extraInfor.paymentTypeData && language === LANGUAGES.VI
                                     ? extraInfor.paymentTypeData.valueVi : ''}
                                 {extraInfor && extraInfor.paymentTypeData && language === LANGUAGES.EN
-                                    ? extraInfor.paymentTypeData.valueVi : ''}
+                                    ? extraInfor.paymentTypeData.valueEn : ''}
                             </div>
                             <div className='hide-price'>
                                 <span onClick={() => this.showHideDetailInfor(false)}>

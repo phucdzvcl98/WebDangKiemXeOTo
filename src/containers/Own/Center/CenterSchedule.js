@@ -25,6 +25,13 @@ class CenterSchedule extends Component {
     async componentDidMount() {
         let { language } = this.props;
         let allDays = this.getArrDays(language);
+
+        if (this.props.centerIdFromParent) {
+            let res = await getScheduleCenterByDate(this.props.centerIdFromParent, allDays[0].value);
+            this.setState({
+                allAvalableTime: res.data ? res.data : []
+            })
+        }
         this.setState({
             allDays: allDays,
         })
@@ -69,9 +76,9 @@ class CenterSchedule extends Component {
                 allDays: allDays
             })
         }
-        if (this.props.centerIdFormParent !== prevProps.centerIdFormParent) {
+        if (this.props.centerIdFromParent !== prevProps.centerIdFromParent) {
             let allDays = this.getArrDays(this.props.language);
-            let res = await getScheduleCenterByDate(this.props.centerIdFormParent, allDays[0].value);
+            let res = await getScheduleCenterByDate(this.props.centerIdFromParent, allDays[0].value);
             this.setState({
                 allAvalableTime: res.data ? res.data : []
             })
@@ -79,8 +86,8 @@ class CenterSchedule extends Component {
     }
 
     handleOnChangeSelect = async (event) => {
-        if (this.props.centerIdFormParent && this.props.centerIdFormParent !== -1) {
-            let centerId = this.props.centerIdFormParent;
+        if (this.props.centerIdFromParent && this.props.centerIdFromParent !== -1) {
+            let centerId = this.props.centerIdFromParent;
             let date = event.target.value;
             let res = await getScheduleCenterByDate(centerId, date);
 
@@ -110,6 +117,7 @@ class CenterSchedule extends Component {
         let { allDays, allAvalableTime, isOpenModalBooking, dataScheduleTimeModal } = this.state;
         let { language } = this.props;
         return (
+
             <>
                 <div className='center-schedule-container'>
                     <div className='all-schedule'>

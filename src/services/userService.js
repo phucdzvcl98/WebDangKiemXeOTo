@@ -54,7 +54,33 @@ const getProfileCenterById = (centerId) => {
 const postOwnBookAppointment = (data) => {
     return axios.post('/api/own-book-appointment', data)
 }
-
+const postVerifyBookAppointment = (data) => {
+    return axios.post('/api/verify-book-appointment', data)
+}
+const createNewSpecialty = (data) => {
+    return axios.post('/api/create-new-specialty', data)
+}
+const getAllSpecialty = (data) => {
+    return axios.get(`/api/get-specialty`)
+}
+const getAllArena = (data) => {
+    return axios.get(`/api/get-arena`)
+}
+const getAllDetailSpecialtyById = (data) => {
+    return axios.get(`/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`)
+}
+const getAllDetailArenaById = (data) => {
+    return axios.get(`/api/get-detail-arena-by-id?id=${data.id}`)
+}
+const createNewArena = (data) => {
+    return axios.post('/api/create-new-arena', data)
+}
+const getAllOwnForCenter = (data) => {
+    return axios.get(`/api/get-list-own-for-center?centerId=${data.centerId}&date=${data.date}`)
+}
+const postSendRemedy = (data) => {
+    return axios.post(`/api/send-remedy`, data)
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -62,5 +88,8 @@ export {
     saveDetailCenterService, getDetailInforCenter,
     saveBulkScheduleCenter, getScheduleCenterByDate,
     getExtraInforCenterById, getProfileCenterById,
-    postOwnBookAppointment
+    postOwnBookAppointment, postVerifyBookAppointment,
+    createNewSpecialty, getAllSpecialty, getAllDetailSpecialtyById,
+    createNewArena, getAllArena, getAllDetailArenaById,
+    getAllOwnForCenter, postSendRemedy
 }

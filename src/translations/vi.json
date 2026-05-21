@@ -50,7 +50,8 @@
             "manage-center": "Quản lý trung tâm"
         },
         "center": {
-            "manage-schedule": "Quản lý kế hoạch đăng kiểm"
+            "manage-schedule": "Quản lý kế hoạch đăng kiểm",
+            "manage-own": "Quản lý khách đặt đăng kiểm"
         }
     },
     "manage-user": {
@@ -70,7 +71,8 @@
     },
     "homepage": {
         "outstanding-vehicle-inspection-center": "Trung tâm đăng kiểm nổi bật",
-        "more-infor": "Xem thêm"
+        "more-infor": "Xem thêm",
+        "specialty-popular": "Dịch vụ phổ biến"
     },
     "manage-schedule": {
         "title": "Quản lý lế hoạch đặt lịch của trung tâm",
@@ -119,7 +121,9 @@
             "province": "Tỉnh thành",
             "nameArena": "Tên khu vực",
             "addressArena": "Địa chỉ khu vực",
-            "note": "Ghi chú"
+            "note": "Ghi chú",
+            "specialty": "Chọn dịch vụ",
+            "select-arena": "Chọn khu vực"
         }
     }
 }
