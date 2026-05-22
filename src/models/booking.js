@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
                 { foreignKey: 'ownId', targetKey: 'id', as: 'ownData' })
             Booking.belongsTo(models.Allcode,
                 { foreignKey: 'timeType', targetKey: 'keyMap', as: 'timeTypeDataOwn' })
+            Booking.belongsTo(models.User, {
+                foreignKey: 'centerId',
+                targetKey: 'id',
+                as: 'centerData'
+            })
         }
     }
     Booking.init({
@@ -22,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
         ownId: DataTypes.INTEGER,
         date: DataTypes.STRING,
         timeType: DataTypes.STRING,
-        token: DataTypes.STRING
+        token: DataTypes.STRING,
+        plateNumber: DataTypes.STRING
 
     }, {
         sequelize,

@@ -4,6 +4,7 @@ require('dotenv').config();
 import emailService from './emailService';
 import { v4 as uuidv4 } from 'uuid';
 import { first } from "lodash";
+import { Op } from 'sequelize';
 
 let buildUrlEmail = (centerId, token) => {
     let result = `${process.env.URL_REACT}/verify-booking?token=${token}&centerId=${centerId}`
@@ -16,12 +17,28 @@ let postBookAppointment = (data) => {
             if (!data.email || !data.centerId || !data.timeType || !data.date
                 || !data.fullName || !data.selectedGender
                 || !data.address
+
             ) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter'
                 })
             } else {
+                let countBooking = await db.Booking.count({
+                    where: {
+                        centerId: data.centerId,
+                        date: data.date,
+                        timeType: data.timeType,
+                        statusId: 'S1'
+                    }
+                })
+
+                if (countBooking >= 2) {
+                    return resolve({
+                        errCode: 2,
+                        errMessage: 'Khung giờ này đã đầy!'
+                    })
+                }
 
                 let token = uuidv4();
                 await emailService.sendSimpleEmail({
@@ -44,18 +61,30 @@ let postBookAppointment = (data) => {
                     },
                 });
 
-                if (user && user[0]) {
-                    await db.Booking.findOrCreate({
-                        where: { ownId: user[0].id },
-                        defaults: {
-                            statusId: 'S1',
-                            centerId: data.centerId,
-                            ownId: user[0].id,
-                            date: data.date,
-                            timeType: data.timeType,
-                            token: token
-                        }
+                // if (user && user[0]) {
+                //     await db.Booking.findOrCreate({
+                //         where: { ownId: user[0].id },
+                //         defaults: {
+                //             statusId: 'S1',
+                //             centerId: data.centerId,
+                //             ownId: user[0].id,
+                //             date: data.date,
+                //             timeType: data.timeType,
+                //             token: token,
+                //             plateNumber: data.plateNumber
+                //         }
 
+                //     })
+                // }
+                if (user && user[0]) {
+                    await db.Booking.create({
+                        statusId: 'S1',
+                        centerId: data.centerId,
+                        ownId: user[0].id,
+                        date: data.date,
+                        timeType: data.timeType,
+                        token: token,
+                        plateNumber: data.plateNumber
                     })
                 }
 
@@ -68,8 +97,6 @@ let postBookAppointment = (data) => {
 
 
         } catch (e) {
-            console.log('CHECK ERROR:', e);
-            console.log('GET LIST OWN ERROR: ', e);
             console.log(e);
             reject(e);
 
@@ -115,8 +142,70 @@ let postVerifyBookAppointment = (data) => {
         }
     })
 }
+let searchBooking = (keyword) => {
 
+    return new Promise(async (resolve, reject) => {
+
+        try {
+
+            let data = await db.Booking.findAll({
+
+                include: [
+                    {
+                        model: db.User,
+                        as: 'ownData',
+                        attributes: ['firstName']
+                    },
+
+                    {
+                        model: db.Allcode,
+                        as: 'timeTypeDataOwn',
+                        attributes: ['valueVi']
+                    },
+
+                    {
+                        model: db.User,
+                        as: 'centerData',
+                        attributes: ['firstName']
+                    }
+                ],
+
+                where: {
+
+                    [Op.or]: [
+
+                        {
+                            plateNumber: {
+                                [Op.like]: `%${keyword}%`
+                            }
+                        },
+
+                        // {
+                        //     phoneNumber: {
+                        //         [Op.like]: `%${keyword}%`
+                        //     }
+                        // }
+
+                    ]
+                },
+
+                raw: false,
+                nest: true
+            })
+
+            resolve({
+                errCode: 0,
+                data: data
+            })
+
+        } catch (e) {
+            reject(e)
+        }
+
+    })
+}
 module.exports = {
     postBookAppointment: postBookAppointment,
-    postVerifyBookAppointment: postVerifyBookAppointment
+    postVerifyBookAppointment: postVerifyBookAppointment,
+    searchBooking: searchBooking
 }

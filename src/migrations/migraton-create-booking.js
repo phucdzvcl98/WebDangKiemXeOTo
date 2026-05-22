@@ -27,6 +27,9 @@ module.exports = {
             token: {
                 type: Sequelize.STRING
             },
+            plateNumber: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
