@@ -96,7 +96,7 @@ class ModalUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label>Password</label>
+                            <label>Mật khẩu</label>
                             <input type="password"
                                 onChange={(event) => {
                                     this.handleOnChageInput(event, "password")
@@ -105,7 +105,7 @@ class ModalUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label>First Name</label>
+                            <label>Tên</label>
                             <input type="text"
                                 onChange={(event) => {
                                     this.handleOnChageInput(event, "firstName")
@@ -114,7 +114,7 @@ class ModalUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label>Last Name</label>
+                            <label>Họ</label>
                             <input type="text"
                                 onChange={(event) => {
                                     this.handleOnChageInput(event, "lastName")
@@ -123,7 +123,7 @@ class ModalUser extends Component {
                             />
                         </div>
                         <div className="input-container max-width-input">
-                            <label>Address</label>
+                            <label>Địa chỉ</label>
                             <input type="text"
                                 onChange={(event) => {
                                     this.handleOnChageInput(event, "address")
@@ -136,8 +136,8 @@ class ModalUser extends Component {
                 <ModalFooter>
                     <Button color="primary"
                         className='px-3'
-                        onClick={() => { this.handleAddNewUser() }}>Add new</Button>{''}
-                    <Button color="secondary" className='px-3' onClick={() => { this.toggle() }}>Close</Button>
+                        onClick={() => { this.handleAddNewUser() }}>Tạo</Button>{''}
+                    <Button color="secondary" className='px-3' onClick={() => { this.toggle() }}>Đóng</Button>
                 </ModalFooter>
             </Modal>
         )

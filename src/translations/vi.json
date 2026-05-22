@@ -36,11 +36,14 @@
             }
         },
         "admin": {
+            "manage-own": "Quản lý khách đặt đăng kiểm",
+            "manage-spec": "Quản lý dịch vụ",
+            "manage-acc": "QUẢN LÝ TÀI KHOẢN",
             "manage-user": "Người dùng",
             "manage-inspector": "Quản lý trung tâm đăng kiểm",
             "manage-admin": "Quản lý admin ",
-            "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
+            "crud": "Tài khoản",
+            "crud-redux": "Quản lý tài khoản",
             "arena": "Khu vực",
             "manage-arena": "Quản lý khu vực",
             "specialty": "Dịch vụ",
@@ -58,8 +61,8 @@
         "add": "Thêm mới người dùng",
         "email": "Email",
         "password": "Mật khẩu",
-        "fname": "Tên",
-        "lname": "Họ",
+        "fullName": "Tên",
+        "upImg": "Tải ảnh",
         "phone": "Số điện thoại",
         "address": "Địa chỉ",
         "gender": "Giới tính",
@@ -76,7 +79,7 @@
         "arena": "Khu vực"
     },
     "manage-schedule": {
-        "title": "Quản lý lế hoạch đặt lịch của trung tâm",
+        "title": "Quản lý kế hoạch đặt lịch của trung tâm",
         "choose-center": "Chọn trung tâm",
         "choose-date": "Chọn ngày",
         "save": "Lưu"
@@ -120,12 +123,38 @@
             "save": "Lưu thông tin",
             "price": "Giá đăng kiểm",
             "payment": "Phương thức thanh toán",
-            "province": "Tỉnh thành",
+            "region": "Vùng Miền",
             "nameArena": "Tên khu vực",
             "addressArena": "Địa chỉ khu vực",
             "note": "Ghi chú",
             "specialty": "Chọn dịch vụ",
             "select-arena": "Chọn khu vực"
         }
+    },
+    "manage-arena": {
+        "name": "Tên khu vực",
+        "address": "Địa chỉ ",
+        "img": "Ảnh",
+        "save": "Lưu"
+    },
+    "manage-specialty": {
+        "name": "Tên khu vực",
+        "address": "Địa chỉ ",
+        "img": "Ảnh",
+        "save": "Lưu"
+    },
+    "table-manage": {
+        "fullName": "Tên trung tâm",
+        "address": "Địa chỉ ",
+        "action": "Hành động"
+    },
+    "manage-own": {
+        "choose": "Chọn ngày đăng kiểm",
+        "time": "Thời gian",
+        "fullName": "Họ và tên",
+        "address": "Địa chỉ",
+        "gender": "Giới tính",
+        "action": "Hành động",
+        "nodata": "Không có dữ liệu"
     }
 }

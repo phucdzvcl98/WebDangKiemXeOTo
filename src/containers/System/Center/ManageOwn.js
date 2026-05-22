@@ -124,12 +124,12 @@ class ManageOwn extends Component {
                     text='Loading...'
                 >
                     <div className='manage-own-container'>
-                        <div className='m-p-title'>
-                            Quản lý khách đặt lịch
+                        <div className='title'>
+                            <FormattedMessage id='menu.admin.manage-own' />
                         </div>
                         <div className='manage-own-body row'>
                             <div className='col-4 form-group'>
-                                <label>Chọn ngày đăng kiểm</label>
+                                <label><FormattedMessage id='manage-own.choose' /></label>
                                 <DatePicker
                                     onChange={this.handleOnChangeDatePicker}
                                     className='form-control'
@@ -141,11 +141,11 @@ class ManageOwn extends Component {
                                     <tbody>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Thời gian</th>
-                                            <th>Họ tên</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Giới tính</th>
-                                            <th>Actions</th>
+                                            <th><FormattedMessage id='manage-own.time' /></th>
+                                            <th><FormattedMessage id='manage-own.fullName' /></th>
+                                            <th><FormattedMessage id='manage-own.address' /></th>
+                                            <th><FormattedMessage id='manage-own.gender' /></th>
+                                            <th><FormattedMessage id='manage-own.action' /></th>
                                         </tr>
                                         {dataOwn && dataOwn.length > 0 ?
                                             dataOwn.map((item, index) => {
@@ -169,7 +169,7 @@ class ManageOwn extends Component {
                                             })
                                             :
                                             <tr>
-                                                <td colSpan="6" style={{ textAlign: "center" }}>no data</td>
+                                                <td colSpan="6" style={{ textAlign: "center" }}><FormattedMessage id='manage-own.nodata' /></td>
                                             </tr>
                                         }
                                     </tbody>

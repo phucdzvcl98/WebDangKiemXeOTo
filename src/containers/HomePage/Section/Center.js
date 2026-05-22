@@ -50,8 +50,8 @@ class Center extends Component {
                                     if (item.image) {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary');
                                     }
-                                    let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
-                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
+                                    let nameVi = `${item.positionData.valueVi}, ${item.fullName}`;
+                                    let nameEn = `${item.positionData.valueEn}, ${item.fullName}`;
                                     return (
                                         <div className="section-customize" key={index} onClick={() => this.handleViewDetailCenter(item)}>
                                             <div className='customize-border'>

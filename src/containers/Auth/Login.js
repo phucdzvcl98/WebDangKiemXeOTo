@@ -72,12 +72,12 @@ class Login extends Component {
             <div className="login-background">
                 <div className="login-container">
                     <div className="login-content">
-                        <div className="col-12 text-login">Login</div>
+                        <div className="col-12 text-login">Đăng Nhập</div>
                         <div className="col-12 form-group login-input">
-                            <label>Username:</label>
+                            <label>Email:</label>
                             <input type="text"
                                 className="form-control"
-                                placeholder='Enter your username'
+                                placeholder='Nhập tài khoản '
                                 value={this.state.username}
                                 onChange={(event) => this.handleOnChangeUsername(event)}
                             />
@@ -87,7 +87,7 @@ class Login extends Component {
                             <div className='custom-input-password'>
                                 <input type={this.state.isShowPassword ? 'text' : 'password'}
                                     className='form-control'
-                                    placeholder='Enter your password'
+                                    placeholder='Nhập mật khẩu'
                                     onChange={(event) => this.handleOnChangePassword(event)}
                                 />
                                 <span
@@ -102,10 +102,10 @@ class Login extends Component {
                             <button className="btn-login" onClick={() => { this.handleLogin() }}>Login</button>
                         </div>
                         <div className="col-12">
-                            <span className="forgot-password">Forgot your password?</span>
+                            <span className="forgot-password">Quên mật khẩu?</span>
                         </div>
                         <div className="col-12 text-center mt-3">
-                            <span className="text-other-login" >Or Login with: </span>
+                            <span className="text-other-login" >Có thể đăng nhập với: </span>
                         </div>
                         <div className='col-12 social-login'>
                             <i className="fa-brands fa-google google"></i>

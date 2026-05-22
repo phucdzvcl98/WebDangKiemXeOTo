@@ -80,17 +80,17 @@ class ManageSpecialty extends Component {
 
         return (
             <div className='manage-specialty-container'>
-                <div className='ms-title'>quan ly dich vu</div>
+                <div className='title'><FormattedMessage id='menu.admin.manage-spec' /></div>
 
                 <div className='add-new-specialty row'>
                     <div className='col-6 form-group'>
-                        <label>ten dich vu</label>
+                        <label><FormattedMessage id='manage-specialty.name' /></label>
                         <input className='form-control' type='text' value={this.state.name}
                             onChange={(event) => this.handleOnChangeInput(event, 'name')}
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>anh dich vu</label>
+                        <label><FormattedMessage id='manage-specialty.img' /></label>
                         <input className='form-control-file' type='file'
                             onChange={(event) => this.handleOnChangeImage(event)}
                         />
@@ -106,7 +106,7 @@ class ManageSpecialty extends Component {
                     <div className='col-12'>
                         <button className='btn-save-specialty'
                             onClick={() => this.handleSaveNewSpecialty()}
-                        >Save</button>
+                        ><FormattedMessage id='manage-specialty.save' /></button>
                     </div>
                 </div>
             </div>

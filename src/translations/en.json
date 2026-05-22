@@ -36,11 +36,14 @@
             }
         },
         "admin": {
+            "manage-own": "Own managent",
+            "manage-spec": "Specialty managent",
+            "manage-acc": "ACCOUNT MANAGENT",
             "manage-user": "User",
             "manage-inspector": "Vehicle inspection center manager",
             "manage-admin": "Admin management",
-            "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
+            "crud": "Account",
+            "crud-redux": "Account managent",
             "arena": "Arena",
             "manage-arena": "Arena management",
             "specialty": "Spcialty",
@@ -58,8 +61,8 @@
         "add": "Add a new user",
         "email": "Email",
         "password": "Password",
-        "fname": "First Name",
-        "lname": "Last Name",
+        "fullname": "Name",
+        "upImg": "Upload Image",
         "phone": "Phone Number",
         "address": "Address",
         "gender": "Gender",
@@ -120,12 +123,38 @@
             "save": "Save infor",
             "price": "Price",
             "payment": "Payment",
-            "province": "Province",
+            "region": "Region",
             "nameArena": "Arena's name",
             "addressArena": "Arena's address",
             "note": "Note",
             "specialty": "Specialty",
             "select-arena": "Arena"
         }
+    },
+    "manage-arena": {
+        "name": "Arena name",
+        "address": "Arena address ",
+        "img": "Image",
+        "save": "Save"
+    },
+    "manage-specialty": {
+        "name": "Specialty name",
+        "address": "Specialty address ",
+        "img": "Image",
+        "save": "Save"
+    },
+    "table-manage": {
+        "fullName": "Fullname",
+        "address": "Address",
+        "action": "Action"
+    },
+    "manage-own": {
+        "choose": "Choose",
+        "time": "Time",
+        "fullName": "Fullname",
+        "address": "Address",
+        "gender": "Gender",
+        "action": "Action",
+        "nodata": "No data"
     }
 }

@@ -43,8 +43,8 @@ class DetailCenter extends Component {
         let { detailCenter } = this.state;
         let nameVi = '', nameEn = '';
         if (detailCenter && detailCenter.positionData) {
-            nameVi = `${detailCenter.positionData.valueVi}, ${detailCenter.lastName} ${detailCenter.firstName}`;
-            nameEn = `${detailCenter.positionData.valueEn}, ${detailCenter.firstName} ${detailCenter.lastName}`;
+            nameVi = `${detailCenter.positionData.valueVi}, ${detailCenter.fullName}`;
+            nameEn = `${detailCenter.positionData.valueEn}, ${detailCenter.fullName}`;
         }
 
         return (

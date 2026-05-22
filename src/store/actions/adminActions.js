@@ -98,12 +98,12 @@ export const createNewUser = (data) => {
     return async (dispatch, getState) => {
         try {
             let res = await createNewUserService(data);
-            toast.success("Create a new user succeed!")
+            toast.success("Tạo mới trung tâm thành công!")
             if (res && res.errCode === 0) {
                 dispatch(saveUserSuccess())
                 dispatch(fetchAllUsersStart())
             } else {
-                toast.error("Create a new user erorr!")
+                toast.error("Tạo mới trung tâm thất bại!")
                 dispatch(saveUserFailed())
             }
         } catch (e) {
@@ -131,11 +131,11 @@ export const fetchAllUsersStart = () => {
             if (res && res.errCode === 0) {
                 dispatch(fetchAllUsersSuccess(res.users.reverse()))
             } else {
-                toast.error("Fetch all user error!")
+                toast.error("Tìm tất cả trung tâm thất bại!")
                 dispatch(fetchAllUsersFailed())
             }
         } catch (e) {
-            toast.error("Fetch all user erorr!")
+            toast.error("Tìm tất cả trung tâm thất bại!")
             dispatch(fetchAllUsersFailed())
             console.log('all user error', e)
         }
@@ -157,15 +157,15 @@ export const deleteAUser = (userId) => {
         try {
             let res = await deleteUserService(userId);
             if (res && res.errCode === 0) {
-                toast.success("Deleted the user succeed!");
+                toast.success("Xóa trung tâm thành công!");
                 dispatch(deleteUserSuccess())
                 dispatch(fetchAllUsersStart())
             } else {
-                toast.error("Deleted the user erorr!");
+                toast.error("Xóa trung tâm thất bại!");
                 dispatch(deleteUserFailed())
             }
         } catch (e) {
-            toast.error("Deleted the user erorr!")
+            toast.error("Xóa trung tâm thất bại!")
             dispatch(deleteUserFailed());
             console.log('deleted error', e)
         }
@@ -185,15 +185,15 @@ export const editAUser = (data) => {
         try {
             let res = await editUserService(data);
             if (res && res.errCode === 0) {
-                toast.success("Update the user succeed!");
+                toast.success("Sửa trung tâm thành công!");
                 dispatch(editUserSuccess())
                 dispatch(fetchAllUsersStart())
             } else {
-                toast.error("Update the user erorr!");
+                toast.error("Sửa trung tâm thất bại!");
                 dispatch(editUserFailed())
             }
         } catch (e) {
-            toast.error("Update the user erorr!")
+            toast.error("Sửa trung tâm thất bại!")
             dispatch(editUserFailed());
             console.log('update error', e)
         }
@@ -259,19 +259,19 @@ export const saveDetailCenter = (data) => {
             console.log('DATA SEND: ', data)
             let res = await saveDetailCenterService(data);
             if (res && res.errCode === 0) {
-                toast.success("Save infor Detail Center succed!");
+                toast.success("Lưu thông tin chi tiết trung tâm thành công!");
                 dispatch({
                     type: actionTypes.SAVE_DETAIL_CENTER_SUCCESS,
                 })
             } else {
                 console.log('errrrrrr', res)
-                toast.error("Save infor Detail Center failed!");
+                toast.error("Lưu thông tin chi tiết trung tâm thất bại!");
                 dispatch({
                     type: actionTypes.SAVE_DETAIL_CENTER_FAILED
                 })
             }
         } catch (e) {
-            toast.error("Save infor Detail Center failed!");
+            toast.error("Lưu thông tin chi tiết trung tâm thất bại!");
             console.log('SAVE_DETAIL_CENTER_FAILED:', e)
             dispatch({
                 type: actionTypes.SAVE_DETAIL_CENTER_FAILED,
@@ -310,19 +310,19 @@ export const getRequiredCenterInfor = () => {
 
             let resPrice = await getAllCodeService("PRICE");
             let resPayment = await getAllCodeService("PAYMENT");
-            let resProvince = await getAllCodeService("PROVINCE");
+            let resRegion = await getAllCodeService("REGION");
             let resSpecialty = await getAllSpecialty();
             let resArena = await getAllArena();
             if (resPrice && resPrice.errCode === 0
                 && resPayment && resPayment.errCode === 0
-                && resProvince && resProvince.errCode === 0
+                && resRegion && resRegion.errCode === 0
                 && resSpecialty && resSpecialty.errCode === 0
                 && resArena && resArena.errCode === 0
             ) {
                 let data = {
                     resPrice: resPrice.data,
                     resPayment: resPayment.data,
-                    resProvince: resProvince.data,
+                    resRegion: resRegion.data,
                     resSpecialty: resSpecialty.data,
                     resArena: resArena.data
                 }

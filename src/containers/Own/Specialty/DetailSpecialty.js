@@ -17,7 +17,7 @@ class DetailSpecialty extends Component {
         this.state = {
             arrCenterId: [],
             dataDetailSpecialty: {},
-            listProvince: []
+            listRegion: []
         }
     }
 
@@ -30,9 +30,9 @@ class DetailSpecialty extends Component {
                 location: 'ALL'
             });
 
-            let resProvince = await getAllCodeService('PROVINCE');
+            let resRegion = await getAllCodeService('REGION');
 
-            if (res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
+            if (res && res.errCode === 0 && resRegion && resRegion.errCode === 0) {
                 let data = res.data;
                 let arrCenterId = [];
                 if (data && !_.isEmpty(res.data)) {
@@ -44,12 +44,12 @@ class DetailSpecialty extends Component {
                     }
                 }
 
-                let dataProvince = resProvince.data;
-                if (dataProvince && dataProvince.length > 0) {
-                    dataProvince.unshift({
+                let dataRegion = resRegion.data;
+                if (dataRegion && dataRegion.length > 0) {
+                    dataRegion.unshift({
                         createdAt: null,
                         keyMap: 'ALL',
-                        type: 'PROVINCE',
+                        type: 'REGION',
                         valueEn: 'ALL',
                         valueVi: 'Toàn quốc',
                     })
@@ -58,7 +58,7 @@ class DetailSpecialty extends Component {
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrCenterId: arrCenterId,
-                    listProvince: dataProvince ? dataProvince : []
+                    listRegion: dataRegion ? dataRegion : []
                 })
             }
         }
@@ -102,7 +102,7 @@ class DetailSpecialty extends Component {
         }
     }
     render() {
-        let { arrCenterId, dataDetailSpecialty, listProvince } = this.state;
+        let { arrCenterId, dataDetailSpecialty, listRegion } = this.state;
         let { language } = this.props;
         return (
             <div className='detail-specialty-container'>
@@ -118,8 +118,8 @@ class DetailSpecialty extends Component {
                     </div>
                     <div className='search-sp-center'>
                         <select onChange={(event) => this.handleOnChangeSelect(event)}>
-                            {listProvince && listProvince.length > 0 &&
-                                listProvince.map((item, index) => {
+                            {listRegion && listRegion.length > 0 &&
+                                listRegion.map((item, index) => {
                                     return (
                                         <option key={index} value={item.keyMap}>
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}

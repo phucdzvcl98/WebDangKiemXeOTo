@@ -43,25 +43,25 @@ class TableManageUser extends Component {
         this.props.handleEditUserFromParentKey(user)
     }
     render() {
-        let arrUsers = this.state.usersRedux;
+        let arrUsers = this.state.usersRedux?.filter(
+            item => item.roleId !== 'R1'
+        );
         return (
             <React.Fragment>
                 <table id='TableManageUser'>
                     <tbody>
                         <tr>
                             <th>Email</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Address</th>
-                            <th>Action</th>
+                            <th><FormattedMessage id='table-manage.fullName' /></th>
+                            <th><FormattedMessage id='table-manage.address' /></th>
+                            <th><FormattedMessage id='table-manage.action' /></th>
                         </tr>
                         {arrUsers && arrUsers.length > 0 &&
                             arrUsers.map((item, index) => {
                                 return (
                                     <tr key={index} >
                                         <td>{item.email}</td>
-                                        <td>{item.firstName}</td>
-                                        <td>{item.lastName} </td>
+                                        <td>{item.fullName}</td>
                                         <td>{item.address} </td>
                                         <td>
                                             <button onClick={() => this.handleEditUser(item)} className='btn-edit' ><i className="fa-solid fa-pen"></i></button>

@@ -31,13 +31,13 @@ class ManageCenter extends Component {
 
             listPrice: [],
             listPayment: [],
-            listProvince: [],
+            listRegion: [],
             listArena: [],
             listSpecialty: [],
 
             selectedPrice: '',
             selectedPayment: '',
-            selectedProvince: '',
+            selectedRegion: '',
             selectedArena: '',
             selectedSpecialty: '',
 
@@ -49,6 +49,7 @@ class ManageCenter extends Component {
     }
 
     componentDidMount() {
+        console.log('allCenters', this.props.allCenters);
         this.props.fetchALLCenters();
         this.props.getRequiredCenterInfor();
     }
@@ -60,9 +61,7 @@ class ManageCenter extends Component {
             if (type === 'USERS') {
                 inputData.map((item, index) => {
                     let object = {};
-                    let labelVi = `${item.lastName} ${item.firstName}`;
-                    let labelEn = `${item.firstName} ${item.lastName}`;
-                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.label = item.fullName;
                     object.value = item.id;
                     result.push(object)
                 })
@@ -77,7 +76,7 @@ class ManageCenter extends Component {
                     result.push(object)
                 })
             }
-            if (type === 'PAYMENT' || type === 'PROVINCE') {
+            if (type === 'PAYMENT' || type === 'REGION') {
                 inputData.map((item, index) => {
                     let object = {};
                     let labelVi = `${item.valueVi}`;
@@ -118,32 +117,32 @@ class ManageCenter extends Component {
         }
 
         if (prevProps.allRequiredCenterInfor !== this.props.allRequiredCenterInfor) {
-            let { resPayment, resPrice, resProvince, resSpecialty, resArena } = this.props.allRequiredCenterInfor;
+            let { resPayment, resPrice, resRegion, resSpecialty, resArena } = this.props.allRequiredCenterInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
-            let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
+            let dataSelectRegion = this.buildDataInputSelect(resRegion, 'REGION');
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY');
             let dataSelectArena = this.buildDataInputSelect(resArena, 'ARENA');
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
-                listProvince: dataSelectProvince,
+                listRegion: dataSelectRegion,
                 listSpecialty: dataSelectSpecialty,
                 listArena: dataSelectArena
             })
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allCenters, 'USERS');
-            let { resPayment, resPrice, resProvince } = this.props.allRequiredCenterInfor;
+            let { resPayment, resPrice, resRegion } = this.props.allRequiredCenterInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
-            let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
+            let dataSelectRegion = this.buildDataInputSelect(resRegion, 'REGION');
 
             this.setState({
                 listCenters: dataSelect,
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
-                listProvince: dataSelectProvince,
+                listRegion: dataSelectRegion,
             })
         }
     }
@@ -168,7 +167,7 @@ class ManageCenter extends Component {
 
             selectedPrice: this.state.selectedPrice.value,
             selectedPayment: this.state.selectedPayment.value,
-            selectedProvince: this.state.selectedProvince.value,
+            selectedRegion: this.state.selectedRegion.value,
             nameArena: this.state.nameArena,
             addressArena: this.state.addressArena,
             note: this.state.note,
@@ -180,15 +179,15 @@ class ManageCenter extends Component {
 
     handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption });
-        let { listPayment, listPrice, listProvince, listSpecialty, listArena } = this.state;
+        let { listPayment, listPrice, listRegion, listSpecialty, listArena } = this.state;
 
         let res = await getDetailInforCenter(selectedOption.value);
         if (res && res.errCode === 0 && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
             let addressArena = '', nameArena = '', note = '', arenaId = '', selectedArena = '',
-                paymentId = '', priceId = '', provinceId = '', specialtyId = '',
-                selectedPayment = '', selectedPrice = '', selectedProvince = '',
+                paymentId = '', priceId = '', regionId = '', specialtyId = '',
+                selectedPayment = '', selectedPrice = '', selectedRegion = '',
                 selectedSpecialty = '';
 
             if (res.data.Center_Infor) {
@@ -197,7 +196,7 @@ class ManageCenter extends Component {
                 note = res.data.Center_Infor.note;
                 paymentId = res.data.Center_Infor.paymentId;
                 priceId = res.data.Center_Infor.priceId;
-                provinceId = res.data.Center_Infor.provinceId;
+                regionId = res.data.Center_Infor.regionId;
                 specialtyId = res.data.Center_Infor.specialtyId;
                 arenaId = res.data.Center_Infor.arenaId;
 
@@ -207,8 +206,8 @@ class ManageCenter extends Component {
                 selectedPrice = listPrice.find(item => {
                     return item && item.value === priceId
                 })
-                selectedProvince = listProvince.find(item => {
-                    return item && item.value === provinceId
+                selectedRegion = listRegion.find(item => {
+                    return item && item.value === regionId
                 })
                 selectedSpecialty = listSpecialty.find(item => {
                     return item && item.value === specialtyId
@@ -228,7 +227,7 @@ class ManageCenter extends Component {
                 note: note,
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
-                selectedProvince: selectedProvince,
+                selectedRegion: selectedRegion,
                 selectedSpecialty: selectedSpecialty,
                 selectedArena: selectedArena
             })
@@ -243,7 +242,7 @@ class ManageCenter extends Component {
                 note: '',
                 selectedPayment: '',
                 selectedPrice: '',
-                selectedProvince: '',
+                selectedRegion: '',
                 selectedSpecialty: '',
                 selectedArena: ''
             })
@@ -271,7 +270,7 @@ class ManageCenter extends Component {
         let { hasOldData } = this.state;
         return (
             <div className="manage-center-container">
-                <div className='manage-center-title'>
+                <div className='title'>
                     <FormattedMessage id="admin.manage-center.title" />
                 </div>
                 <div className='more-infor'>
@@ -315,13 +314,13 @@ class ManageCenter extends Component {
                         />
                     </div>
                     <div className='col-4 form-group'>
-                        <label><FormattedMessage id='admin.manage-center.province' /></label>
+                        <label><FormattedMessage id='admin.manage-center.region' /></label>
                         <Select
-                            value={this.state.selectedProvince}
+                            value={this.state.selectedRegion}
                             onChange={this.handleChangeSelectCenterInfor}
-                            options={this.state.listProvince}
-                            placeholder={<FormattedMessage id='admin.manage-center.province' />}
-                            name="selectedProvince"
+                            options={this.state.listRegion}
+                            placeholder={<FormattedMessage id='admin.manage-center.region' />}
+                            name="selectedRegion"
                         />
                     </div>
                     <div className='col-4 form-group'>

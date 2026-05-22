@@ -165,7 +165,7 @@ class ManageSchedule extends Component {
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
         return (
             <div className='manage-schedule-container'>
-                <div className='m-s-title'>
+                <div className='title'>
                     <FormattedMessage id='manage-schedule.title' />
                 </div>
                 <div className='container'>

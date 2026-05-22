@@ -82,23 +82,23 @@ class ManageArena extends Component {
 
         return (
             <div className='manage-specialty-container'>
-                <div className='ms-title'>Quản lý khu vực</div>
+                <div className='title'><FormattedMessage id='menu.admin.manage-arena' /></div>
 
                 <div className='add-new-specialty row'>
                     <div className='col-6 form-group'>
-                        <label>Tên khu vực</label>
+                        <label><FormattedMessage id='manage-arena.name' /></label>
                         <input className='form-control' type='text' value={this.state.name}
                             onChange={(event) => this.handleOnChangeInput(event, 'name')}
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>Ảnh khu vực</label>
+                        <label><FormattedMessage id='manage-arena.img' /></label>
                         <input className='form-control-file' type='file'
                             onChange={(event) => this.handleOnChangeImage(event)}
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>Địa chỉ khu vực</label>
+                        <label><FormattedMessage id='manage-arena.address' /></label>
                         <input className='form-control' type='text' value={this.state.address}
                             onChange={(event) => this.handleOnChangeInput(event, 'address')}
                         />
@@ -114,7 +114,7 @@ class ManageArena extends Component {
                     <div className='col-12'>
                         <button className='btn-save-specialty'
                             onClick={() => this.ManageSaveNewArena()}
-                        >Save</button>
+                        ><FormattedMessage id='manage-arena.save' /></button>
                     </div>
                 </div>
             </div>
