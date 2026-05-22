@@ -35,6 +35,7 @@ class ManageOwn extends Component {
             centerId: user.id,
             date: formatedDate
         })
+        console.log('CHECK RES:', res);
         if (res && res.errCode === 0) {
             this.setState({
                 dataOwn: res.data
@@ -99,14 +100,14 @@ class ManageOwn extends Component {
             this.setState({
                 isShowLoading: false
             })
-            toast.success('Send Remedy succeeds:');
+            toast.success('Gửi hóa đơn thành công:');
             this.closeRemedyModal();
             await this.getDataOwn();
         } else {
             this.setState({
                 isShowLoading: false
             })
-            toast.error('Something wrongs....');
+            toast.error('Có lỗi xảy ra....');
             console.log('error send remedy:', res)
         }
     }

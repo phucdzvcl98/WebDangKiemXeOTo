@@ -64,7 +64,7 @@ class ManageArena extends Component {
     ManageSaveNewArena = async () => {
         let res = await createNewArena(this.state)
         if (res && res.errCode === 0) {
-            toast.success('Add new arena succeeds!')
+            toast.success('Tạo khu vực thành công!')
             this.setState({
                 name: '',
                 imageBase64: '',
@@ -73,7 +73,7 @@ class ManageArena extends Component {
                 descriptionMarkdown: '',
             })
         } else {
-            toast.error('Something wrongs.....')
+            toast.error('Có lỗi xảy ra.....')
             console.log('>> phuc check res:', res)
         }
     }

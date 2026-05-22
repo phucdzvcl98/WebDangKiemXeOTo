@@ -81,6 +81,11 @@ const getAllOwnForCenter = (data) => {
 const postSendRemedy = (data) => {
     return axios.post(`/api/send-remedy`, data)
 }
+const searchBooking = (keyword) => {
+    return axios.get(
+        `/api/search-booking?keyword=${keyword}`
+    );
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -91,5 +96,5 @@ export {
     postOwnBookAppointment, postVerifyBookAppointment,
     createNewSpecialty, getAllSpecialty, getAllDetailSpecialtyById,
     createNewArena, getAllArena, getAllDetailArenaById,
-    getAllOwnForCenter, postSendRemedy
+    getAllOwnForCenter, postSendRemedy, searchBooking
 }

@@ -18,6 +18,7 @@ import Center from '../routes/Center';
 import VerifyEmail from './Own/VerifyEmail.js';
 import DetailSpecialty from './Own/Specialty/DetailSpecialty.js';
 import DetailArena from './Own/Arena/DetailArena.js';
+import SearchBooking from '../containers/HomePage/SearchBooking';
 
 class App extends Component {
 
@@ -52,6 +53,7 @@ class App extends Component {
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={'/center/'} component={userIsAuthenticated(Center)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
+                                    <Route path="/search" component={SearchBooking} />
                                     <Route path={path.DETAIL_CENTER} component={DetailCenter} />
                                     <Route path={path.DETAIL_SPCIALTY} component={DetailSpecialty} />
                                     <Route path={path.DETAIL_ARENA} component={DetailArena} />

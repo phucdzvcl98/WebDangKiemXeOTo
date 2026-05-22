@@ -48,10 +48,10 @@ class Menu extends Component {
                         </div>
                     </Fragment>
                 ) : (
-                        <Link to={link} className="menu-link" onClick={onLinkClick}>
-                            <FormattedMessage id={name} />
-                        </Link>
-                    )}
+                    <Link to={link} className="menu-link" onClick={onLinkClick}>
+                        <FormattedMessage id={name} />
+                    </Link>
+                )}
             </li>
         );
     }
@@ -193,36 +193,20 @@ class Navigator extends Component {
                         menus.map((group, groupIndex) => {
                             return (
                                 <Fragment key={groupIndex}>
-                                    <MenuGroupWithRouter name={group.name}>
-                                        {group.menus ? (
-                                            group.menus.map((menu, menuIndex) => {
-                                                const isMenuHasSubMenuActive = this.isMenuHasSubMenuActive(location, menu.subMenus, menu.link);
-                                                const isSubMenuOpen = this.state.expandedMenu[groupIndex + '_' + menuIndex] === true;
-                                                return (
-                                                    <MenuWithRouter
-                                                        key={menuIndex}
-                                                        active={isMenuHasSubMenuActive}
-                                                        name={menu.name}
-                                                        link={menu.link}
-                                                        hasSubMenu={menu.subMenus}
-                                                        isOpen={isSubMenuOpen}
-                                                        onClick={() => this.toggle(groupIndex, menuIndex)}
-                                                        onLinkClick={onLinkClick}
-                                                    >
-                                                        {menu.subMenus && menu.subMenus.map((subMenu, subMenuIndex) => (
-                                                            <SubMenuWithRouter
-                                                                key={subMenuIndex}
-                                                                name={subMenu.name}
-                                                                link={subMenu.link}
-                                                                onClick={this.closeOtherExpand}
-                                                                onLinkClick={onLinkClick}
-                                                            />
-                                                        ))}
-                                                    </MenuWithRouter>
-                                                );
-                                            })
-                                        ) : null}
-                                    </MenuGroupWithRouter>
+                                    <li className="menu-group" key={groupIndex}>
+
+                                        <div className="menu-group-name">
+
+                                            <Link
+                                                to={group.link}
+                                                className="menu-link"
+                                            >
+                                                <FormattedMessage id={group.name} />
+                                            </Link>
+
+                                        </div>
+
+                                    </li>
                                 </Fragment>
                             );
                         })

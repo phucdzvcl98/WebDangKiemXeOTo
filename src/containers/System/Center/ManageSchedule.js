@@ -119,11 +119,11 @@ class ManageSchedule extends Component {
         let { rangeTime, selectedCenter, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
-            toast.error("Invalid date!");
+            toast.error("Ngày không hợp lệ!");
             return;
         }
         if (selectedCenter && _.isEmpty(selectedCenter)) {
-            toast.error("Invalid seleted center!");
+            toast.error("Trung tâm chọn không hợp lệ!");
             return;
         }
         // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
@@ -142,7 +142,7 @@ class ManageSchedule extends Component {
                     result.push(object)
                 })
             } else {
-                toast.error("Invalid seleted time!");
+                toast.error("Thời gian chọn không hợp lệ!");
                 return;
             }
         }
@@ -152,9 +152,9 @@ class ManageSchedule extends Component {
             formatedDate: formatedDate,
         })
         if (res && res.errCode === 0) {
-            toast.success("Save Infor succeed!");
+            toast.success("Lưu thông tin thành công!");
         } else {
-            toast.error("error saveBulkScheduleCenter");
+            toast.error("Lỗi saveBulkScheduleCenter");
             console.log('error saveBulkScheduleCenter>>>res:', res)
         }
 

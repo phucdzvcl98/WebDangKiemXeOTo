@@ -8,6 +8,13 @@ import { withRouter } from 'react-router';
 import logo from "../../assets/logo.png"
 
 class HomeHeader extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            search: '',
+        }
+    }
 
     changeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
@@ -15,6 +22,17 @@ class HomeHeader extends Component {
     returnToHome = () => {
         if (this.props.history) {
             this.props.history.push(`/home`)
+        }
+    }
+    handleSearch = (event) => {
+        if (event.key === 'Enter') {
+
+            if (this.props.history) {
+                this.props.history.push(
+                    `/search?keyword=${this.state.search}`
+                )
+            }
+
         }
     }
     render() {
@@ -64,7 +82,20 @@ class HomeHeader extends Component {
                             <div className="title2"><FormattedMessage id="banner.title2" /></div>
                             <div className="search">
                                 <i className="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" placeholder={this.props.language === 'vi' ? "Tìm kiếm trung tâm đăng kiểm..." : "Search for vehicle inspection center..."} />
+                                {/* <input type="text" placeholder={this.props.language === 'vi' ? "Tìm kiếm trung tâm đăng kiểm..." : "Search for vehicle inspection center..."} /> */}
+                                <input
+                                    type="text"
+                                    placeholder={
+                                        this.props.language === 'vi'
+                                            ? "Tìm kiếm biển số xe..."
+                                            : "Search by plate number..."
+                                    }
+                                    value={this.state.search}
+                                    onChange={(event) =>
+                                        this.setState({ search: event.target.value })
+                                    }
+                                    onKeyDown={(event) => this.handleSearch(event)}
+                                />
                             </div>
                         </div>
                         <div className="content-down">

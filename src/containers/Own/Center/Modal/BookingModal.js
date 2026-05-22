@@ -29,6 +29,7 @@ class BookingModal extends Component {
             centerId: '',
             timeType: '',
             genders: '',
+            plateNumber: '',
         }
     }
 
@@ -143,15 +144,27 @@ class BookingModal extends Component {
             timeType: this.state.timeType,
             language: this.props.language,
             timeString: timeString,
-            centerName: centerName
-        })
+            centerName: centerName,
+            plateNumber: this.state.plateNumber
 
+        })
         if (res && res.errCode === 0) {
-            toast.success('Booking a new appointment succeed!')
+            toast.success('Đặt lịch thành công!')
             this.props.closeBookingClose();
+
+        } else if (res && res.errCode === 2) {
+            toast.error('Khung giờ này đã đủ 2 xe!')
+
         } else {
-            toast.error('Booking a new appointment error!')
+            toast.error('Đặt lịch thất bại!')
         }
+
+        // if (res && res.errCode === 0) {
+        //     toast.success('Booking a new appointment succeed!')
+        //     this.props.closeBookingClose();
+        // } else {
+        //     toast.error('Booking a new appointment error!')
+        // }
     }
 
     render() {
@@ -227,6 +240,13 @@ class BookingModal extends Component {
                                 <input className='form-control'
                                     value={this.state.address}
                                     onChange={(event) => this.handleOnchangeInput(event, 'address')}
+                                />
+                            </div>
+                            <div className='col-6 form-group'>
+                                <label><FormattedMessage id='own.booking-modal.plateNumber' /></label>
+                                <input className='form-control'
+                                    value={this.state.plateNumber}
+                                    onChange={(event) => this.handleOnchangeInput(event, 'plateNumber')}
                                 />
                             </div>
                             <div className='col-12 form-group'>

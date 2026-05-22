@@ -103,8 +103,6 @@ class DetailSpecialty extends Component {
     }
     render() {
         let { arrCenterId, dataDetailSpecialty, listProvince } = this.state;
-
-        console.log('phuccheck state:', this.state)
         let { language } = this.props;
         return (
             <div className='detail-specialty-container'>

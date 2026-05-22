@@ -72,7 +72,8 @@
     "homepage": {
         "outstanding-vehicle-inspection-center": "Outstanding vehicle inspection center",
         "more-infor": "More infor",
-        "specialty-popular": "Popular specialties"
+        "specialty-popular": "Popular specialties",
+        "arena": "Arena"
     },
     "manage-schedule": {
         "title": "Manage center's examination plan",
@@ -106,7 +107,8 @@
             "btnConfirm": "Confirm",
             "btnCancel": "Cancel",
             "priceBooking": "Free booking",
-            "price": "Price:"
+            "price": "Price:",
+            "plateNumber": "Plate Number"
         }
     },
     "admin": {

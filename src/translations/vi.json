@@ -70,9 +70,10 @@
         "edit": "Sửa"
     },
     "homepage": {
-        "outstanding-vehicle-inspection-center": "Trung tâm đăng kiểm nổi bật",
+        "outstanding-vehicle-inspection-center": "Trung tâm đăng kiểm phổ biến",
         "more-infor": "Xem thêm",
-        "specialty-popular": "Dịch vụ phổ biến"
+        "specialty-popular": "Dịch vụ phổ  biến",
+        "arena": "Khu vực"
     },
     "manage-schedule": {
         "title": "Quản lý lế hoạch đặt lịch của trung tâm",
@@ -106,7 +107,8 @@
             "btnConfirm": "Xác nhận",
             "btnCancel": "Hủy",
             "priceBooking": "Miễn phí đặt lịch",
-            "price": "Giá đăng kiểm:"
+            "price": "Giá đăng kiểm:",
+            "plateNumber": "Biển số xe"
         }
     },
     "admin": {
