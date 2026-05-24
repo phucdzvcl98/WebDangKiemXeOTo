@@ -57,7 +57,7 @@ let postBookAppointment = (data) => {
                         roleId: 'R3',
                         gender: data.selectedGender,
                         address: data.address,
-                        firstName: data.fullName
+                        fullName: data.fullName
                     },
                 });
 
@@ -154,7 +154,7 @@ let searchBooking = (keyword) => {
                     {
                         model: db.User,
                         as: 'ownData',
-                        attributes: ['firstName']
+                        attributes: ['fullName']
                     },
 
                     {
@@ -166,7 +166,7 @@ let searchBooking = (keyword) => {
                     {
                         model: db.User,
                         as: 'centerData',
-                        attributes: ['firstName']
+                        attributes: ['fullName']
                     }
                 ],
 

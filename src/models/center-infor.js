@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
             Center_Infor.belongsTo(models.User, { foreignKey: 'centerId' })
 
             Center_Infor.belongsTo(models.Allcode, { foreignKey: 'priceId', targetKey: 'keyMap', as: 'priceTypeData' })
-            Center_Infor.belongsTo(models.Allcode, { foreignKey: 'provinceId', targetKey: 'keyMap', as: 'provinceTypeData' })
+            Center_Infor.belongsTo(models.Allcode, { foreignKey: 'regionId', targetKey: 'keyMap', as: 'regionTypeData' })
             Center_Infor.belongsTo(models.Allcode, { foreignKey: 'paymentId', targetKey: 'keyMap', as: 'paymentTypeData' })
         }
     }
     Center_Infor.init({
         centerId: DataTypes.INTEGER,
         priceId: DataTypes.STRING,
-        provinceId: DataTypes.STRING,
+        regionId: DataTypes.STRING,
         paymentId: DataTypes.STRING,
         addressArena: DataTypes.STRING,
         nameArena: DataTypes.STRING,

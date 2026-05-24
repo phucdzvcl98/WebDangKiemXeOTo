@@ -75,19 +75,22 @@ let getDetailSpecialtyById = (inputId, location) => {
                 })
                 if (data) {
                     let centerSpecialty = [];
+
                     if (location === 'ALL') {
                         centerSpecialty = await db.Center_Infor.findAll({
-                            where: { specialtyId: inputId },
-                            attributes: ['centerId', 'provinceId'],
-                        })
+                            where: {
+                                specialtyId: inputId
+                            },
+                            attributes: ['centerId', 'specialtyId', 'regionId']
+                        });
                     } else {
                         centerSpecialty = await db.Center_Infor.findAll({
                             where: {
                                 specialtyId: inputId,
-                                provinceId: location
+                                regionId: location
                             },
-                            attributes: ['centerId', 'provinceId'],
-                        })
+                            attributes: ['centerId', 'specialtyId', 'regionId']
+                        });
                     }
 
                     data.centerSpecialty = centerSpecialty;

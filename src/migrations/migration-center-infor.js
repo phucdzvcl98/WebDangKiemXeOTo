@@ -26,7 +26,7 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING
             },
-            provinceId: {
+            regionId: {
                 allowNull: false,
                 type: Sequelize.STRING
             },

@@ -105,7 +105,7 @@ let sendAttachment = async (dataSend) => {
                 },
             });
             let info = await transporter.sendMail({
-                from: '"Web đăng kiểm xe ô tô"<dangphuc09082003#gmail.com>',
+                from: '"Web đăng kiểm xe ô tô"<dangphuc09082003@gmail.com>',
                 to: dataSend.email,
                 subject: "Kết quả đặt lịch đăng kiểm",
                 attachments: [

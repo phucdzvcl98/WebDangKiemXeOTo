@@ -15,10 +15,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      firstName: {
-        type: Sequelize.STRING
-      },
-      lastName: {
+      fullName: {
         type: Sequelize.STRING
       },
       address: {
@@ -37,7 +34,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
       },
 
       createdAt: {

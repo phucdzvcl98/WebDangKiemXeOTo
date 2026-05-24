@@ -80,7 +80,7 @@ let getDetailArenaById = (inputId) => {
                     let centerArena = [];
                     centerArena = await db.Center_Infor.findAll({
                         where: { arenaId: inputId },
-                        attributes: ['centerId', 'provinceId'],
+                        attributes: ['centerId', 'regionId'],
                     })
                     data.centerArena = centerArena;
                 } else data = {}

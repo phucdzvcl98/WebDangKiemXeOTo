@@ -58,7 +58,7 @@ let getAllCenters = () => {
 
 let checkRequiredFields = (inputData) => {
     let arrFields = ['centerId', 'contentHTML', 'contentMarkdown', 'action',
-        'selectedPrice', 'selectedPayment', 'selectedProvince', 'nameArena',
+        'selectedPrice', 'selectedPayment', 'selectedRegion', 'nameArena',
         'addressArena', 'note', 'specialtyId'
     ]
     let isValid = true;
@@ -119,7 +119,7 @@ let saveDetailInforCenter = (inputData) => {
                 if (centerInfor) {
                     centerInfor.centerId = inputData.centerId;
                     centerInfor.priceId = inputData.selectedPrice;
-                    centerInfor.provinceId = inputData.selectedProvince;
+                    centerInfor.regionId = inputData.selectedRegion;
                     centerInfor.paymentId = inputData.selectedPayment;
                     centerInfor.nameArena = inputData.nameArena;
                     centerInfor.addressArena = inputData.addressArena;
@@ -132,7 +132,7 @@ let saveDetailInforCenter = (inputData) => {
                     await db.Center_Infor.create({
                         centerId: inputData.centerId,
                         priceId: inputData.selectedPrice,
-                        provinceId: inputData.selectedProvince,
+                        regionId: inputData.selectedRegion,
                         paymentId: inputData.selectedPayment,
                         nameArena: inputData.nameArena,
                         addressArena: inputData.addressArena,
@@ -183,7 +183,7 @@ let getDetailCenterById = (inputId) => {
                             },
                             include: [
                                 { model: db.Allcode, as: 'priceTypeData', attributes: ['valueEn', 'valueVi'] },
-                                { model: db.Allcode, as: 'provinceTypeData', attributes: ['valueEn', 'valueVi'] },
+                                { model: db.Allcode, as: 'regionTypeData', attributes: ['valueEn', 'valueVi'] },
                                 { model: db.Allcode, as: 'paymentTypeData', attributes: ['valueEn', 'valueVi'] },
                             ]
                         },
@@ -270,7 +270,7 @@ let getScheduleByDate = (centerId, date) => {
                     include: [
                         { model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] },
 
-                        { model: db.User, as: 'centerData', attributes: ['firstName', 'lastName'] },
+                        { model: db.User, as: 'centerData', attributes: ['id', 'fullName'] },
                     ],
                     raw: false,
                     nest: true
@@ -307,7 +307,7 @@ let getExtraInforCenterById = (idInput) => {
                     },
                     include: [
                         { model: db.Allcode, as: 'priceTypeData', attributes: ['valueEn', 'valueVi'] },
-                        { model: db.Allcode, as: 'provinceTypeData', attributes: ['valueEn', 'valueVi'] },
+                        { model: db.Allcode, as: 'regionTypeData', attributes: ['valueEn', 'valueVi'] },
                         { model: db.Allcode, as: 'paymentTypeData', attributes: ['valueEn', 'valueVi'] },
                     ],
                     raw: false,
@@ -360,7 +360,7 @@ let getProfileCenterById = (inputId) => {
                             },
                             include: [
                                 { model: db.Allcode, as: 'priceTypeData', attributes: ['valueEn', 'valueVi'] },
-                                { model: db.Allcode, as: 'provinceTypeData', attributes: ['valueEn', 'valueVi'] },
+                                { model: db.Allcode, as: 'regionTypeData', attributes: ['valueEn', 'valueVi'] },
                                 { model: db.Allcode, as: 'paymentTypeData', attributes: ['valueEn', 'valueVi'] },
                             ]
                         },
@@ -403,7 +403,7 @@ let getListOwnForCenter = (centerId, date) => {
                     include: [
                         {
                             model: db.User, as: 'ownData',
-                            attributes: ['email', 'firstName', 'address', 'gender'],
+                            attributes: ['email', 'fullName', 'address', 'gender'],
                             include: [
                                 { model: db.Allcode, as: 'genderData', attributes: ['valueEn', 'valueVi'] },
                             ]

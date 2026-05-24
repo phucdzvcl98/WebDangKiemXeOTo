@@ -24,7 +24,7 @@ let handleUserLogin = (email, password) => {
             let isExist = await checkUserEmail(email);
             if (isExist) {
                 let user = await db.User.findOne({
-                    attributes: ["id", "email", "roleId", "password", "firstName", "lastName"],
+                    attributes: ["id", "email", "roleId", "password", "fullName"],
                     where: { email: email },
                     raw: true
                 });
@@ -110,8 +110,7 @@ let createNewUser = (data) => {
                 await db.User.create({
                     email: data.email,
                     password: hashPasswordFromBcrypt,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
+                    fullName: data.fullName,
                     address: data.address,
                     phonenumber: data.phonenumber,
                     gender: data.gender,
@@ -161,8 +160,8 @@ let updateUserData = (data) => {
             if (
                 !data.id ||
                 !data.roleId ||
-                !data.positionId ||
-                !data.gender
+                !data.positionId
+
             ) {
                 resolve({
                     errCode: 2,
@@ -174,8 +173,7 @@ let updateUserData = (data) => {
                 raw: false
             })
             if (user) {
-                user.firstName = data.firstName;
-                user.lastName = data.lastName;
+                user.fullName = data.fullName;
                 user.address = data.address;
                 user.roleId = data.roleId;
                 user.positionId = data.positionId;

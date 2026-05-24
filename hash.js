@@ -8,6 +8,6 @@ bcrypt.hash('1', 10, function (err, hash) {
 // INSERT INTO users(email, password, roleId)
 // VALUES(
 //     '1',
-//     '$2b$10$nzF5RYtebkNul/Lz2X.4ge.rLBhD2WTKWLfh9tYqzsR8ojWQN/Sbu',
+//     '$2b$10$R9JiORAhHqCSDaDRFl7Aoenpwj1VrkfgbeNsTx90b85EBi90I8zmW',
 //     'R1'
 // );
