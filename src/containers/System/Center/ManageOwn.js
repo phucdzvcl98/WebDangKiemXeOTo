@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './ManageOwn.scss';
 import DatePicker from '../../../components/Input/DatePicker';
-import { getAllOwnForCenter, postSendRemedy } from '../../../services/userService';
+import { getAllOwnForCenter, postSendRemedy, cancelBooking } from '../../../services/userService';
 import moment from 'moment';
 import { LANGUAGES } from '../../../utils';
 import RemedyModal from './RemedyModal';
@@ -72,6 +72,18 @@ class ManageOwn extends Component {
             isOpenRemedyModal: true,
             dataModal: data
         })
+    }
+    handleCancelBooking = async (item) => {
+        let res = await cancelBooking({
+            bookingId: item.id
+        });
+
+        if (res && res.errCode === 0) {
+            toast.success("Hủy lịch thành công!");
+            this.getDataOwn();
+        } else {
+            toast.error("Hủy lịch thất bại!");
+        }
     }
 
     closeRemedyModal = () => {
@@ -158,13 +170,16 @@ class ManageOwn extends Component {
                                                     <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{item.timeTypeDataOwn.valueVi}</td>
-                                                        <td>{item.ownData.fullName}</td>
+                                                        <td>{item.fullName}</td>
                                                         <td>{item.ownData.address}</td>
                                                         <td>{item.ownData.genderData.valueVi}</td>
                                                         <td>
                                                             <button className='mp-btn-confirm'
                                                                 onClick={() => this.handleBtnConfirm(item)}>Xác nhận</button>
+                                                            <button className='mp-btn-cancel'
+                                                                onClick={() => this.handleCancelBooking(item)}>Hủy</button>
                                                         </td>
+
                                                     </tr>
                                                 )
                                             })

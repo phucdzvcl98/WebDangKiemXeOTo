@@ -87,8 +87,8 @@ class HomeHeader extends Component {
                                     type="text"
                                     placeholder={
                                         this.props.language === 'vi'
-                                            ? "Tìm kiếm biển số xe..."
-                                            : "Search by plate number..."
+                                            ? "Tìm kiếm lịch đã được xác nhận bằng biển số hoặc số điện thoại..."
+                                            : "Search for confirmed appointments by license plate or phone number..."
                                     }
                                     value={this.state.search}
                                     onChange={(event) =>

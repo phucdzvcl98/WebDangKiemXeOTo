@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { searchBooking } from '../../services/userService';
 import './SearchBooking.scss';
+import HomeHeader from '../HomePage/HomeHeader';
 
 class SearchBooking extends Component {
 
@@ -32,82 +33,87 @@ class SearchBooking extends Component {
         let { dataSearch } = this.state;
 
         return (
-            <div className='search-booking-container'>
+            <>
+                <HomeHeader isShowBanner={false} />
+                <div className='search-booking-container'>
 
-                <div className='title'>
-                    Kết quả tìm kiếm
-                </div>
+                    <div className='title'>
+                        Kết quả tìm kiếm
+                    </div>
 
-                <table className='table table-bordered'>
+                    <table className='table table-bordered'>
 
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Biển số</th>
-                            <th>Họ tên</th>
-                            <th>Trung tâm</th>
-                            <th>Ngày đăng kiểm</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        {dataSearch && dataSearch.length > 0 ?
-
-                            dataSearch.map((item, index) => {
-
-                                return (
-                                    <tr key={index}>
-
-                                        <td>{index + 1}</td>
-
-                                        <td>{item.plateNumber}</td>
-
-                                        <td>
-                                            {item.ownData.firstName}
-                                        </td>
-
-
-                                        <td>
-                                            {item.centerData.firstName}
-                                        </td>
-
-                                        <td>
-                                            {new Date(
-                                                +item.date
-                                            ).toLocaleDateString('vi-VN')}
-                                        </td>
-
-                                        <td>
-                                            {item.statusId === 'S1'
-                                                ? 'Chờ xác nhận'
-                                                : 'Đã xác nhận'}
-                                        </td>
-
-                                    </tr>
-                                )
-                            })
-
-                            :
-
+                        <thead>
                             <tr>
-                                <td
-                                    colSpan="7"
-                                    style={{
-                                        textAlign: 'center'
-                                    }}
-                                >
-                                    Không tìm thấy dữ liệu
-                                </td>
+
+
+                                <th>Họ tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Biển số</th>
+                                <th>Trung tâm</th>
+                                <th>Ngày đăng kiểm</th>
+                                <th>Trạng thái</th>
                             </tr>
-                        }
+                        </thead>
 
-                    </tbody>
+                        <tbody>
 
-                </table>
+                            {dataSearch && dataSearch.length > 0 ?
 
-            </div>
+                                dataSearch.map((item, index) => {
+
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                {item.fullName}
+                                            </td>
+                                            <td>{item.phoneNumber}</td>
+                                            <td>{item.plateNumber}</td>
+                                            <td>
+                                                {item.centerData && item.centerData.fullName}
+                                            </td>
+                                            <td>
+                                                {new Date(
+                                                    +item.date
+                                                ).toLocaleDateString('vi-VN')}
+                                            </td>
+
+                                            <td>
+                                                {
+                                                    item.statusId === 'S1'
+                                                        ? 'Đang xử lý'
+                                                        : item.statusId === 'S2'
+                                                            ? 'Đã xác nhận'
+                                                            : item.statusId === 'S4'
+                                                                ? 'Đã hủy'
+                                                                : 'Hoàn thành'
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    )
+                                })
+
+                                :
+
+                                <tr>
+                                    <td
+                                        colSpan="7"
+                                        style={{
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        Không tìm thấy dữ liệu
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </>
         )
     }
 }

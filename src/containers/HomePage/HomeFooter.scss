@@ -1,0 +1,44 @@
+.home-footer {
+    background: #1f2937;
+    color: white;
+    margin-top: 40px;
+
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 40px 80px;
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            width: 30%;
+        }
+
+        h3,
+        h4 {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 8px 0;
+            color: #d1d5db;
+        }
+
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+
+            &:hover {
+                color: #93c5fd;
+            }
+        }
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding: 15px;
+        background: #111827;
+        font-size: 14px;
+    }
+}

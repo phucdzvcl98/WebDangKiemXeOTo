@@ -21,7 +21,7 @@ class BookingModal extends Component {
         this.state = {
             fullName: '',
             phoneNumber: '',
-            email: '',
+            email: 'dangphuc09082003@gmail.com',
             address: '',
             reason: '',
             birthday: '',
@@ -220,7 +220,7 @@ class BookingModal extends Component {
                                     onChange={(event) => this.handleOnchangeInput(event, 'phoneNumber')}
                                 />
                             </div>
-                            <div className='col-6 form-group'>
+                            {/* <div className='col-6 form-group'>
                                 <label>
                                     <FormattedMessage id='own.booking-modal.email' />
                                 </label>
@@ -228,7 +228,7 @@ class BookingModal extends Component {
                                     value={this.state.email}
                                     onChange={(event) => this.handleOnchangeInput(event, 'email')}
                                 />
-                            </div>
+                            </div> */}
                             <div className='col-6 form-group'>
                                 <label><FormattedMessage id='own.booking-modal.address' /></label>
                                 <input className='form-control'
