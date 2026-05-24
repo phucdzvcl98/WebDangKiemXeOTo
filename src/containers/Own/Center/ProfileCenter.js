@@ -76,8 +76,8 @@ class ProfileCenter extends Component {
 
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {
-            nameVi = `${dataProfile.positionData.valueVi},${dataProfile.lastName} ${dataProfile.firstName}`
-            nameEn = `${dataProfile.positionData.valueEn},${dataProfile.firstName} ${dataProfile.lastName}`
+            let nameVi = `${dataProfile.positionData.valueVi}, ${dataProfile.fullName}`;
+            let nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.fullName}`;
         }
         return (
             <div className='profile-center-container'>

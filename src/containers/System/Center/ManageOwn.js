@@ -31,11 +31,12 @@ class ManageOwn extends Component {
         let { user } = this.props;
         let { currentDate } = this.state;
         let formatedDate = new Date(currentDate).getTime();
+
         let res = await getAllOwnForCenter({
             centerId: user.id,
             date: formatedDate
         })
-        console.log('CHECK RES:', res);
+
         if (res && res.errCode === 0) {
             this.setState({
                 dataOwn: res.data
@@ -65,7 +66,7 @@ class ManageOwn extends Component {
             ownId: item.ownId,
             email: item.ownData.email,
             timeType: item.timeType,
-            ownName: item.ownData.firstName
+            ownName: item.ownData.fullName
         }
         this.setState({
             isOpenRemedyModal: true,
@@ -157,7 +158,7 @@ class ManageOwn extends Component {
                                                     <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{item.timeTypeDataOwn.valueVi}</td>
-                                                        <td>{item.ownData.firstName}</td>
+                                                        <td>{item.ownData.fullName}</td>
                                                         <td>{item.ownData.address}</td>
                                                         <td>{item.ownData.genderData.valueVi}</td>
                                                         <td>
