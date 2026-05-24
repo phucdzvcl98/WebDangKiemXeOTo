@@ -52,10 +52,32 @@
                         background-color: #45c3d2;
                         color: white;
                     }
+
+                    &.btn-disabled {
+                        background-color: #ccc !important;
+                        color: #666 !important;
+                        cursor: not-allowed;
+
+                        &:hover {
+                            background-color: #ccc !important;
+                            color: #666 !important;
+                        }
+                    }
                 }
 
                 .btn-vie {
                     min-width: 120px;
+                }
+
+                &.btn-disabled {
+                    background-color: #ccc !important;
+                    color: #666 !important;
+                    cursor: not-allowed;
+
+                    &:hover {
+                        background-color: #ccc !important;
+                        color: #666 !important;
+                    }
                 }
 
                 .btn-en {

@@ -150,11 +150,15 @@ class CenterSchedule extends Component {
                                             let timeDisplay = language === LANGUAGES.VI ?
                                                 item.timeTypeData.valueVi : item.timeTypeData.valueEn;
                                             return (
-                                                <button key={index}
-                                                    className={language === LANGUAGES.VI ? 'btn-vie' : 'btn-en'}
+                                                <button
+                                                    key={index}
+                                                    className={`${language === LANGUAGES.VI ? 'btn-vie' : 'btn-en'} ${item.remainingNumber <= 0 ? 'btn-disabled' : ''}`}
+                                                    disabled={item.remainingNumber <= 0}
                                                     onClick={() => this.handleClickScheduleTime(item)}
                                                 >
                                                     {timeDisplay}
+                                                    <br />
+                                                    {item.remainingNumber <= 0 ? 'Hết chỗ' : `Còn ${item.remainingNumber} xe`}
                                                 </button>
                                             )
                                         })
