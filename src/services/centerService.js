@@ -59,7 +59,7 @@ let getAllCenters = () => {
 let checkRequiredFields = (inputData) => {
     let arrFields = ['centerId', 'contentHTML', 'contentMarkdown', 'action',
         'selectedPrice', 'selectedPayment', 'selectedRegion', 'nameArena',
-        'addressArena', 'note', 'specialtyId'
+        'addressArena', 'note', 'specialtyIds'
     ]
     let isValid = true;
     let element = '';
@@ -124,7 +124,6 @@ let saveDetailInforCenter = (inputData) => {
                     centerInfor.nameArena = inputData.nameArena;
                     centerInfor.addressArena = inputData.addressArena;
                     centerInfor.note = inputData.note;
-                    centerInfor.specialtyId = inputData.specialtyId;
                     centerInfor.arenaId = inputData.arenaId;
 
                     await centerInfor.save()
@@ -137,9 +136,25 @@ let saveDetailInforCenter = (inputData) => {
                         nameArena: inputData.nameArena,
                         addressArena: inputData.addressArena,
                         note: inputData.note,
-                        specialtyId: inputData.specialtyId,
                         arenaId: inputData.arenaId,
                     })
+                }
+                if (inputData.specialtyIds && inputData.specialtyIds.length > 0) {
+
+                    await db.Center_Specialty.destroy({
+                        where: {
+                            centerId: inputData.centerId
+                        }
+                    });
+
+                    let arrSpecialty = inputData.specialtyIds.map(item => ({
+                        centerId: inputData.centerId,
+                        specialtyId: item,
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    }));
+
+                    await db.Center_Specialty.bulkCreate(arrSpecialty);
                 }
 
                 resolve({

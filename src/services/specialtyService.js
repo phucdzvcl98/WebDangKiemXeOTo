@@ -77,21 +77,30 @@ let getDetailSpecialtyById = (inputId, location) => {
                     let centerSpecialty = [];
 
                     if (location === 'ALL') {
-                        centerSpecialty = await db.Center_Infor.findAll({
-                            where: {
-                                specialtyId: inputId
-                            },
-                            attributes: ['centerId', 'specialtyId', 'regionId']
+                        centerSpecialty = await db.Center_Specialty.findAll({
+                            where: { specialtyId: inputId },
+                            attributes: ['centerId', 'specialtyId'],
+                            raw: true
                         });
                     } else {
-                        centerSpecialty = await db.Center_Infor.findAll({
+                        let centerInfors = await db.Center_Infor.findAll({
+                            where: { regionId: location },
+                            attributes: ['centerId'],
+                            raw: true
+                        });
+
+                        let centerIds = centerInfors.map(item => item.centerId);
+
+                        centerSpecialty = await db.Center_Specialty.findAll({
                             where: {
                                 specialtyId: inputId,
-                                regionId: location
+                                centerId: centerIds
                             },
-                            attributes: ['centerId', 'specialtyId', 'regionId']
+                            attributes: ['centerId', 'specialtyId'],
+                            raw: true
                         });
                     }
+
 
                     data.centerSpecialty = centerSpecialty;
                 } else data = {}
