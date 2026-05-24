@@ -128,7 +128,8 @@
             "addressArena": "Arena's address",
             "note": "Note",
             "specialty": "Specialty",
-            "select-arena": "Arena"
+            "select-arena": "Arena",
+            "dashboard": "Statistical"
         }
     },
     "manage-arena": {

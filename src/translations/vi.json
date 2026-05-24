@@ -50,7 +50,8 @@
             "manage-specialty": "Quản lý dịch vụ",
             "handbook": "Cẩm nang",
             "manage-handbook": "Quản lý cẩm nang",
-            "manage-center": "Quản lý trung tâm"
+            "manage-center": "Quản lý trung tâm",
+            "dashboard": "Thống kê"
         },
         "center": {
             "manage-schedule": "Quản lý kế hoạch đăng kiểm",

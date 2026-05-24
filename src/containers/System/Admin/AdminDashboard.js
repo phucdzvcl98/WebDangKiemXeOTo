@@ -7,7 +7,9 @@ class AdminDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            stats: {}
+            stats: {},
+            bookingByStatus: [],
+            bookingByDate: []
         }
     }
 
@@ -16,8 +18,10 @@ class AdminDashboard extends Component {
 
         if (res && res.errCode === 0) {
             this.setState({
-                stats: res.data
-            })
+                stats: res.data,
+                bookingByStatus: res.data.bookingByStatus || [],
+                bookingByDate: res.data.bookingByDate || []
+            });
         }
     }
 
@@ -29,8 +33,7 @@ class AdminDashboard extends Component {
             <div className='admin-dashboard-container'>
 
                 <div className='dashboard-header'>
-                    <h2>Dashboard hệ thống</h2>
-                    <p>Quản lý và thống kê website đăng kiểm xe ô tô</p>
+                    <div className='title'>Dashboard hệ thống</div>
                 </div>
 
                 <div className='dashboard-content row'>
@@ -67,6 +70,52 @@ class AdminDashboard extends Component {
                         </div>
                     </div>
 
+                </div>
+
+                <div className="dashboard-tables row">
+                    <div className="col-6">
+                        <div className="stat-table">
+                            <h3>Thống kê theo trạng thái</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Trạng thái</th>
+                                        <th>Số lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.bookingByStatus.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{item.statusId}</td>
+                                            <td>{item.total}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div className="col-6">
+                        <div className="stat-table">
+                            <h3>Thống kê theo ngày</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>Số lượt đặt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.bookingByDate.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{new Date(+item.date).toLocaleDateString('vi-VN')}</td>
+                                            <td>{item.total}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

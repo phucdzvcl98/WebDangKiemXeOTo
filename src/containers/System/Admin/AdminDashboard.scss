@@ -62,3 +62,34 @@
         background: linear-gradient(135deg, #dc3545, #b52a37);
     }
 }
+
+.dashboard-tables {
+    margin-top: 30px;
+
+    .stat-table {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+        h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+
+            th,
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #eee;
+            }
+
+            th {
+                background: #f5f7fb;
+            }
+        }
+    }
+}

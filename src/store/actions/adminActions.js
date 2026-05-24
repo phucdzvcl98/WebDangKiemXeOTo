@@ -20,8 +20,8 @@ export const fetchGenderStart = () => {
                 dispatch(fetchGenderFailed())
             }
         } catch (e) {
-            fetchGenderFailed();
-            dispatch(console.log('gender error', e))
+            console.log('gender error', e);
+            dispatch(fetchGenderFailed());
         }
     }
 
@@ -48,10 +48,12 @@ export const fetchPositionStart = () => {
             } else {
                 dispatch(fetchPositionFailed())
             }
-        } catch (e) {
-            fetchPositionFailed();
-            dispatch(console.log('position error', e))
         }
+        catch (e) {
+            console.log('position error', e);
+            dispatch(fetchPositionFailed());
+        }
+
     }
 
 }
@@ -77,10 +79,12 @@ export const fetchRoleStart = () => {
             } else {
                 dispatch(fetchRoleFailed())
             }
-        } catch (e) {
-            fetchRoleFailed();
-            dispatch(console.log('role error', e))
         }
+        catch (e) {
+            console.log('role error', e);
+            dispatch(fetchRoleFailed());
+        }
+
     }
 
 }
