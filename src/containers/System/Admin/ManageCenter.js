@@ -13,6 +13,7 @@ import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
 import { saveDetailCenterService } from '../../../services/userService';
 import { getDetailInforCenter } from "../../../services/userService"
 import Specialty from '../../HomePage/Section/Specialty';
+import { getAdminDashboardStats } from '../../../services/userService';
 
 
 const mdParser = new MarkdownIt();
@@ -44,14 +45,21 @@ class ManageCenter extends Component {
             nameArena: '',
             addressArena: '',
             note: '',
-            specialtyId: ''
+            specialtyId: '',
+            stats: {}
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log('allCenters', this.props.allCenters);
         this.props.fetchALLCenters();
         this.props.getRequiredCenterInfor();
+        let resStats = await getAdminDashboardStats();
+        if (resStats && resStats.errCode === 0) {
+            this.setState({
+                stats: resStats.data
+            });
+        }
     }
 
     buildDataInputSelect = (inputData, type) => {

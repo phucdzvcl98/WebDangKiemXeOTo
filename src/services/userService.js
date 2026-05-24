@@ -86,6 +86,9 @@ const searchBooking = (keyword) => {
         `/api/search-booking?keyword=${keyword}`
     );
 }
+const getAdminDashboardStats = () => {
+    return axios.get('/api/admin-dashboard-stats');
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -96,5 +99,6 @@ export {
     postOwnBookAppointment, postVerifyBookAppointment,
     createNewSpecialty, getAllSpecialty, getAllDetailSpecialtyById,
     createNewArena, getAllArena, getAllDetailArenaById,
-    getAllOwnForCenter, postSendRemedy, searchBooking
+    getAllOwnForCenter, postSendRemedy, searchBooking,
+    getAdminDashboardStats
 }

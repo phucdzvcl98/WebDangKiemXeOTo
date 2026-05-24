@@ -11,6 +11,10 @@ export const adminMenu = [
     { //quản lý dịch vụ
         name: 'menu.admin.manage-specialty', link: '/system/manage-specialty'
     },
+    {
+        name: 'menu.admin.dashboard',
+        link: '/system/admin-dashboard'
+    },
 ];
 
 export const centerMenu = [

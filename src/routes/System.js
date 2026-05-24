@@ -7,6 +7,7 @@ import Header from '../containers/Header/Header';
 import ManageCenter from '../containers/System/Admin/ManageCenter';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageArena from '../containers/System/Arena/ManageArena';
+import AdminDashboard from '../containers/System/Admin/AdminDashboard';
 
 class System extends Component {
     render() {
@@ -22,6 +23,7 @@ class System extends Component {
                             <Route path="/system/manage-center" component={ManageCenter} />
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />
                             <Route path="/system/manage-arena" component={ManageArena} />
+                            <Route path="/system/admin-dashboard" component={AdminDashboard} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

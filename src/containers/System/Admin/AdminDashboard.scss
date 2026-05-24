@@ -1,0 +1,64 @@
+.admin-dashboard-container {
+    padding: 30px;
+    background: #f4f6f9;
+    min-height: 100vh;
+
+    .dashboard-header {
+        margin-bottom: 30px;
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        p {
+            color: #777;
+            margin-top: 5px;
+        }
+    }
+
+    .dashboard-card {
+        border-radius: 15px;
+        padding: 30px 20px;
+        color: white;
+        text-align: center;
+        margin-bottom: 20px;
+        transition: 0.3s;
+
+        &:hover {
+            transform: translateY(-5px);
+        }
+
+        i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        span {
+            font-size: 16px;
+        }
+    }
+
+    .center {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+    }
+
+    .arena {
+        background: linear-gradient(135deg, #28a745, #1e7e34);
+    }
+
+    .specialty {
+        background: linear-gradient(135deg, #ff9800, #e68900);
+    }
+
+    .booking {
+        background: linear-gradient(135deg, #dc3545, #b52a37);
+    }
+}
