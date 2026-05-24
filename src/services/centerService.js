@@ -277,6 +277,24 @@ let getScheduleByDate = (centerId, date) => {
                 })
                 if (!dataSchedule) dataSchedule = [];
 
+                if (dataSchedule && dataSchedule.length > 0) {
+                    dataSchedule = dataSchedule.map(item => item.get({ plain: true }));
+
+                    for (let i = 0; i < dataSchedule.length; i++) {
+                        let currentNumber = await db.Booking.count({
+                            where: {
+                                centerId: centerId,
+                                date: date,
+                                timeType: dataSchedule[i].timeType,
+                                statusId: ['S1', 'S2']
+                            }
+                        });
+
+                        dataSchedule[i].currentNumber = currentNumber;
+                        dataSchedule[i].remainingNumber = dataSchedule[i].maxNumber - currentNumber;
+                    }
+                }
+
                 resolve({
                     errCode: 0,
                     data: dataSchedule
