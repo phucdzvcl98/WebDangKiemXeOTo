@@ -506,6 +506,41 @@ let getAdminDashboardStats = () => {
         }
     });
 }
+let cancelBooking = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let booking = await db.Booking.findOne({
+                where: {
+                    id: data.bookingId
+                },
+                raw: false
+            });
+
+            if (booking) {
+
+                booking.statusId = 'S4';
+
+                await booking.save();
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'ok'
+                });
+
+            } else {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Booking not found'
+                });
+            }
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 
 module.exports = {
     getTopCenterHome: getTopCenterHome,
@@ -518,5 +553,6 @@ module.exports = {
     getProfileCenterById: getProfileCenterById,
     getListOwnForCenter: getListOwnForCenter,
     sendRemedy: sendRemedy,
-    getAdminDashboardStats: getAdminDashboardStats
+    getAdminDashboardStats: getAdminDashboardStats,
+    cancelBooking: cancelBooking
 }

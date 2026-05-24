@@ -9,6 +9,9 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            fullName: {
+                type: Sequelize.STRING
+            },
             statusId: {
                 type: Sequelize.STRING
             },
@@ -28,6 +31,9 @@ module.exports = {
                 type: Sequelize.STRING
             },
             plateNumber: {
+                type: Sequelize.STRING
+            },
+            phoneNumber: {
                 type: Sequelize.STRING
             },
             createdAt: {

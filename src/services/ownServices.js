@@ -57,7 +57,8 @@ let postBookAppointment = (data) => {
                         roleId: 'R3',
                         gender: data.selectedGender,
                         address: data.address,
-                        fullName: data.fullName
+                        fullName: data.fullName,
+                        phoneNumber: data.phoneNumber
                     },
                 });
 
@@ -84,7 +85,9 @@ let postBookAppointment = (data) => {
                         date: data.date,
                         timeType: data.timeType,
                         token: token,
-                        plateNumber: data.plateNumber
+                        plateNumber: data.plateNumber,
+                        phoneNumber: data.phoneNumber,
+                        fullName: data.fullName
                     })
                 }
 
@@ -180,11 +183,11 @@ let searchBooking = (keyword) => {
                             }
                         },
 
-                        // {
-                        //     phoneNumber: {
-                        //         [Op.like]: `%${keyword}%`
-                        //     }
-                        // }
+                        {
+                            phoneNumber: {
+                                [Op.like]: `%${keyword}%`
+                            }
+                        }
 
                     ]
                 },

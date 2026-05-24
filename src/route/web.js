@@ -38,6 +38,7 @@ let initWebRoutes = (app) => {
     router.post('/api/send-remedy', centerController.sendRemedy);
     router.get('/api/admin-dashboard-stats', centerController.getAdminDashboardStats);
     router.get('/api/admin-dashboard-stats', centerController.getAdminDashboardStats);
+    router.post('/api/cancel-booking', centerController.cancelBooking);
 
     router.get('/api/search-booking', ownController.searchBooking);
     router.post('/api/own-book-appointment', ownController.postBookAppointment);
