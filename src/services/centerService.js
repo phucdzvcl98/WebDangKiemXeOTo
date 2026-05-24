@@ -462,21 +462,32 @@ let sendRemedy = (data) => {
         }
     })
 }
+
 let getAdminDashboardStats = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let totalCenters = await db.User.count({
-                where: { roleId: 'R2' }
-            });
-
+            let totalCenters = await db.User.count({ where: { roleId: 'R2' } });
             let totalArena = await db.Arena.count();
-
             let totalSpecialty = await db.Specialty.count();
-
             let totalBooking = await db.Booking.count();
 
-            let totalConfirmedBooking = await db.Booking.count({
-                where: { statusId: 'S2' }
+            let bookingByStatus = await db.Booking.findAll({
+                attributes: [
+                    'statusId',
+                    [db.sequelize.fn('COUNT', db.sequelize.col('id')), 'total']
+                ],
+                group: ['statusId'],
+                raw: true
+            });
+
+            let bookingByDate = await db.Booking.findAll({
+                attributes: [
+                    'date',
+                    [db.sequelize.fn('COUNT', db.sequelize.col('id')), 'total']
+                ],
+                group: ['date'],
+                order: [['date', 'DESC']],
+                raw: true
             });
 
             resolve({
@@ -486,7 +497,8 @@ let getAdminDashboardStats = () => {
                     totalArena,
                     totalSpecialty,
                     totalBooking,
-                    totalConfirmedBooking
+                    bookingByStatus,
+                    bookingByDate
                 }
             });
         } catch (e) {

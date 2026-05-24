@@ -237,6 +237,9 @@ let getAllCodeService = (typeInput) => {
         }
     })
 }
+const getAdminDashboardStats = () => {
+    return axios.get('/api/admin-dashboard-stats');
+}
 
 module.exports = {
     handleUserLogin: handleUserLogin,
@@ -244,5 +247,6 @@ module.exports = {
     createNewUser: createNewUser,
     deleteUser: deleteUser,
     updateUserData: updateUserData,
-    getAllCodeService: getAllCodeService
+    getAllCodeService: getAllCodeService,
+    getAdminDashboardStats: getAdminDashboardStats
 }
