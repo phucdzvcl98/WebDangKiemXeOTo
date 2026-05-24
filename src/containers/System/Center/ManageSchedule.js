@@ -29,9 +29,19 @@ class ManageSchedule extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.fetchALLCenters()
         this.props.fetchALLSheduleTime()
+        let { userInfo } = this.props;
+
+        if (userInfo && userInfo.roleId === 'R2') {
+            this.setState({
+                selectedCenter: {
+                    value: userInfo.id,
+                    label: userInfo.fullName
+                }
+            });
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -170,14 +180,14 @@ class ManageSchedule extends Component {
                 </div>
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-6 form-group' >
+                        {/* <div className='col-6 form-group' >
                             <label><FormattedMessage id='manage-schedule.choose-center' /></label>
                             <Select
                                 value={this.state.selectedCenter}
                                 onChange={this.handleChangeSelect}
                                 options={this.state.listCenters}
                             />
-                        </div>
+                        </div> */}
                         <div className='col-6 form-group'>
                             <label><FormattedMessage id='manage-schedule.choose-date' /></label>
                             <DatePicker
@@ -222,6 +232,7 @@ const mapStateToProps = state => {
         language: state.app.language,
         allCenters: state.admin.allCenters,
         allSheduleTime: state.admin.allSheduleTime,
+        userInfo: state.user.userInfo,
     };
 };
 
