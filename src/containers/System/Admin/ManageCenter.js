@@ -180,7 +180,7 @@ class ManageCenter extends Component {
             addressArena: this.state.addressArena,
             note: this.state.note,
             arenaId: this.state.selectedArena && this.state.selectedArena.value ? this.state.selectedArena.value : '',
-            specialtyId: this.state.selectedSpecialty.value
+            specialtyIds: this.state.selectedSpecialty.map(item => item.value)
         })
 
     }
@@ -217,8 +217,9 @@ class ManageCenter extends Component {
                 selectedRegion = listRegion.find(item => {
                     return item && item.value === regionId
                 })
-                selectedSpecialty = listSpecialty.find(item => {
-                    return item && item.value === specialtyId
+                selectedSpecialty = listSpecialty.filter(item => {
+                    return res.data.specialtyData &&
+                        res.data.specialtyData.some(sp => sp.specialtyId === item.value)
                 })
                 selectedArena = listArena.find(item => {
                     return item && item.value === arenaId
@@ -356,10 +357,13 @@ class ManageCenter extends Component {
                         <label><FormattedMessage id='admin.manage-center.specialty' /></label>
                         <Select
                             value={this.state.selectedSpecialty}
+                            onChange={(selectedOption) =>
+                                this.handleChangeSelectCenterInfor(selectedOption, {
+                                    name: 'selectedSpecialty'
+                                })
+                            }
                             options={this.state.listSpecialty}
-                            placeholder={<FormattedMessage id='admin.manage-center.specialty' />}
-                            onChange={this.handleChangeSelectCenterInfor}
-                            name='selectedSpecialty'
+                            isMulti
                         />
                     </div>
                     <div className='col-4 form-group'>
