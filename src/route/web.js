@@ -36,6 +36,7 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-list-own-for-center', centerController.getListOwnForCenter);
     router.post('/api/send-remedy', centerController.sendRemedy);
+    router.get('/api/admin-dashboard-stats', centerController.getAdminDashboardStats);
 
     router.get('/api/search-booking', ownController.searchBooking);
     router.post('/api/own-book-appointment', ownController.postBookAppointment);

@@ -462,6 +462,38 @@ let sendRemedy = (data) => {
         }
     })
 }
+let getAdminDashboardStats = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let totalCenters = await db.User.count({
+                where: { roleId: 'R2' }
+            });
+
+            let totalArena = await db.Arena.count();
+
+            let totalSpecialty = await db.Specialty.count();
+
+            let totalBooking = await db.Booking.count();
+
+            let totalConfirmedBooking = await db.Booking.count({
+                where: { statusId: 'S2' }
+            });
+
+            resolve({
+                errCode: 0,
+                data: {
+                    totalCenters,
+                    totalArena,
+                    totalSpecialty,
+                    totalBooking,
+                    totalConfirmedBooking
+                }
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
 
 module.exports = {
     getTopCenterHome: getTopCenterHome,
@@ -473,5 +505,6 @@ module.exports = {
     getExtraInforCenterById: getExtraInforCenterById,
     getProfileCenterById: getProfileCenterById,
     getListOwnForCenter: getListOwnForCenter,
-    sendRemedy: sendRemedy
+    sendRemedy: sendRemedy,
+    getAdminDashboardStats: getAdminDashboardStats
 }
