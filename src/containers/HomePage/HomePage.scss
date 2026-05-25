@@ -54,6 +54,12 @@
 
     .section-body {
         .section-customize {
+            text-align: center;
+
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
             .bg-image {
                 width: 260px;
@@ -65,36 +71,10 @@
                 border-radius: 10px;
                 overflow: hidden;
 
-                &.section-specialty {}
+                // &.section-specialty {}
 
-                // &.section-khu-vuc {
-                //     &.hanoi {
-                //         background-image: url('../../assets/khu-vuc/hanoi.png');
-                //     }
 
-                //     &.tphcm {
-                //         background-image: url('../../assets/khu-vuc/tphcm.png');
-                //     }
-
-                //     &.danang {
-                //         background-image: url('../../assets/khu-vuc/danang.png');
-                //     }
-
-                //     &.haiphong {
-                //         background-image: url('../../assets/khu-vuc/haiphong.png');
-                //     }
-
-                //     &.cantho {
-                //         background-image: url('../../assets/khu-vuc/cantho.png');
-                //     }
-
-                //     &.binhduong {
-                //         background-image: url('../../assets/khu-vuc/binhduong.png');
-                //     }
-
-                // }
-
-                &.section-medical-facility {}
+                // &.section-medical-facility {}
 
                 &.section-center {
                     width: 120px;
@@ -104,31 +84,6 @@
 
                 }
 
-                &.section-cam-nang {
-                    &.dangkiem {
-                        background-image: url('../../assets/cam-nang/dangkiem.png');
-                    }
-
-                    &.giayto {
-                        background-image: url('../../assets/cam-nang/giayto.png');
-                    }
-
-                    &.kq {
-                        background-image: url('../../assets/cam-nang/kq.png');
-                    }
-
-                    &.luuy {
-                        background-image: url('../../assets/cam-nang/luuy.png');
-                    }
-
-                    &.trungtam {
-                        background-image: url('../../assets/cam-nang/trungtam.png');
-                    }
-
-                    &.xe {
-                        background-image: url('../../assets/cam-nang/xe.png');
-                    }
-                }
             }
         }
     }
@@ -195,6 +150,7 @@
             align-items: center;
             border: 1px solid #d7d7d7;
             padding: 20px;
+            text-align: center;
         }
     }
 }

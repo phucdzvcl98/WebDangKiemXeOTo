@@ -77,7 +77,7 @@
         "outstanding-vehicle-inspection-center": "Trung tâm đăng kiểm phổ biến",
         "more-infor": "Xem thêm",
         "specialty-popular": "Dịch vụ phổ  biến",
-        "arena": "Khu vực"
+        "arena": "Khu vực trọng điểm"
     },
     "manage-schedule": {
         "title": "Quản lý kế hoạch đặt lịch của trung tâm",
@@ -139,7 +139,7 @@
         "save": "Lưu"
     },
     "manage-specialty": {
-        "name": "Tên khu vực",
+        "name": "Tên dịch vụ",
         "address": "Địa chỉ ",
         "img": "Ảnh",
         "save": "Lưu"

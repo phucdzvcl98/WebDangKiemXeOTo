@@ -1,8 +1,15 @@
 .detail-arena-container {
     .description-arena {
         background-color: white !important;
-        padding: 10px;
+        padding: 20px;
         margin: 15px 0;
+
+        div:first-child {
+            font-size: 36px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 15px;
+        }
 
         h1,
         h2,

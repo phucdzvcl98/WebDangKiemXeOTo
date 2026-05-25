@@ -7,6 +7,7 @@ import { getAllOwnForCenter, postSendRemedy, cancelBooking } from '../../../serv
 import moment from 'moment';
 import { LANGUAGES } from '../../../utils';
 import RemedyModal from './RemedyModal';
+import CancelModal from './CancelModal';
 import { toast } from 'react-toastify';
 import LoadingOverlay from 'react-loading-overlay';
 
@@ -19,7 +20,10 @@ class ManageOwn extends Component {
             dataOwn: [],
             isOpenRemedyModal: false,
             dataModal: {},
-            isShowLoading: false
+            isOpenCancelModal: false,
+            dataCancelModal: {},
+            isShowLoading: false,
+
         }
     }
 
@@ -74,8 +78,21 @@ class ManageOwn extends Component {
         })
     }
     handleCancelBooking = async (item) => {
+        let reason = prompt("Nhập lý do hủy lịch:");
+
+        if (!reason) {
+            toast.error("Bạn chưa nhập lý do!");
+            return;
+        }
+
         let res = await cancelBooking({
-            bookingId: item.id
+            bookingId: item.id,
+            reason: reason,
+
+            fullName: item.fullName,
+            phoneNumber: item.phoneNumber,
+            centerName: this.props.user.fullName,
+            plateNumber: item.plateNumber
         });
 
         if (res && res.errCode === 0) {
@@ -122,6 +139,40 @@ class ManageOwn extends Component {
             })
             toast.error('Có lỗi xảy ra....');
             console.log('error send remedy:', res)
+        }
+    }
+    openCancelModal = (item) => {
+        this.setState({
+            isOpenCancelModal: true,
+            dataCancelModal: item
+        })
+    }
+
+    closeCancelModal = () => {
+        this.setState({
+            isOpenCancelModal: false,
+            dataCancelModal: {}
+        })
+    }
+
+    sendCancel = async (dataChild) => {
+        let { dataCancelModal } = this.state;
+
+        let res = await cancelBooking({
+            bookingId: dataCancelModal.id,
+            reason: dataChild.reason,
+            fullName: dataCancelModal.fullName,
+            phoneNumber: dataCancelModal.phoneNumber,
+            plateNumber: dataCancelModal.plateNumber,
+            centerName: this.props.user.fullName
+        });
+
+        if (res && res.errCode === 0) {
+            toast.success("Hủy lịch thành công!");
+            this.closeCancelModal();
+            await this.getDataOwn();
+        } else {
+            toast.error("Hủy lịch thất bại!");
         }
     }
 
@@ -177,7 +228,7 @@ class ManageOwn extends Component {
                                                             <button className='mp-btn-confirm'
                                                                 onClick={() => this.handleBtnConfirm(item)}>Xác nhận</button>
                                                             <button className='mp-btn-cancel'
-                                                                onClick={() => this.handleCancelBooking(item)}>Hủy</button>
+                                                                onClick={() => this.openCancelModal(item)}>Hủy</button>
                                                         </td>
 
                                                     </tr>
@@ -198,6 +249,11 @@ class ManageOwn extends Component {
                         dataModal={dataModal}
                         closeRemedyModal={this.closeRemedyModal}
                         sendRemedy={this.sendRemedy}
+                    />
+                    <CancelModal
+                        isOpenModal={this.state.isOpenCancelModal}
+                        closeCancelModal={this.closeCancelModal}
+                        sendCancel={this.sendCancel}
                     />
                 </LoadingOverlay>
             </>

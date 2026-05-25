@@ -4,15 +4,23 @@
 
     .intro-center {
         display: flex;
+        align-items: center;
         margin: 0 100px;
 
+
         .content-left {
-            width: 20%;
-            background: center center no-repeat;
             width: 120px;
             height: 120px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
             border-radius: 50%;
-            margin: 10px 20px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin: 0 auto;
         }
 
         .content-right {
