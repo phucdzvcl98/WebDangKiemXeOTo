@@ -122,8 +122,46 @@ let sendAttachment = async (dataSend) => {
         }
     })
 }
+let sendCancelBooking = async (dataSend) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.EMAIL_APP,
+                    pass: process.env.EMAIL_APP_PASSWORD,
+                },
+            });
+
+            await transporter.sendMail({
+                from: '"Web đăng kiểm xe ô tô"<dangphuc09082003@gmail.com>',
+                to: dataSend.receiverEmail,
+                subject: "Thông báo hủy lịch đăng kiểm",
+                html: `
+                    <h3>Xin chào ${dataSend.fullName || ''}!</h3>
+                    <p>Lịch đăng kiểm xe của bạn đã bị hủy.</p>
+                    <p><b>Số điện thoại:</b>${dataSend.phoneNumber || ''} </p>
+                    <p> <b>Trung tâm hủy lịch:</b>${dataSend.centerName || ''}</p>
+                    <p><b>Biển số xe:</b>${dataSend.plateNumber || ''}</p>
+                    <p><b>Lý do hủy:</b>${dataSend.reason || ''}</p>
+                    <p>Vui lòng đặt lại lịch khác nếu cần.</p>
+
+                    <div>Xin chân thành cảm ơn!</div>
+                `
+            });
+
+            resolve(true);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 
 module.exports = {
     sendSimpleEmail: sendSimpleEmail,
-    sendAttachment: sendAttachment
+    sendAttachment: sendAttachment,
+    sendCancelBooking: sendCancelBooking
+
 }

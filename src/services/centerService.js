@@ -556,6 +556,13 @@ let cancelBooking = (data) => {
 
                 await booking.save();
 
+                await emailService.sendCancelBooking({
+                    receiverEmail: process.env.EMAIL_APP,
+                    fullName: booking.fullName,
+                    plateNumber: booking.plateNumber,
+                    reason: data.reason
+                });
+
                 resolve({
                     errCode: 0,
                     errMessage: 'ok'
