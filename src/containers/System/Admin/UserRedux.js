@@ -86,7 +86,6 @@ class UserRedux extends Component {
                 avatar: base64
             })
         }
-        let objectUrl = URL.createObjectURL(file);
     }
 
     openPreviewImage = () => {
