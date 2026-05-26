@@ -15,6 +15,12 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      centerId: {
+        type: Sequelize.STRING
+      },
+      ownId: {
+        type: Sequelize.STRING
+      },
       fullName: {
         type: Sequelize.STRING
       },
@@ -25,9 +31,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       roleId: {
-        type: Sequelize.STRING
-      },
-      phonenumber: {
         type: Sequelize.STRING
       },
       positionId: {

@@ -22,11 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
+    centerId: DataTypes.STRING,
+    ownId: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     fullName: DataTypes.STRING,
     address: DataTypes.STRING,
-    phonenumber: DataTypes.STRING,
     gender: DataTypes.STRING,
     image: DataTypes.BLOB('long'),
     roleId: DataTypes.STRING,

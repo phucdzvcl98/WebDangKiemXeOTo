@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         nameArena: DataTypes.STRING,
         note: DataTypes.STRING,
         count: DataTypes.INTEGER,
-        specialtyId: DataTypes.INTEGER,
         arenaId: DataTypes.INTEGER,
 
     }, {
