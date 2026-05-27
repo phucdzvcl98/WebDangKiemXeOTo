@@ -50,11 +50,13 @@
             "manage-specialty": "Specialty managent",
             "handbook": "Handbook",
             "manage-handbook": "Handbook managent",
-            "manage-center": "Center Managent"
+            "manage-center": "Center Managent",
+            "dashboard": "Dashboard"
         },
         "center": {
             "manage-schedule": "Manage Center's schedule",
-            "manage-own": "Manage Center's Own"
+            "manage-own": "Manage Center's Own",
+            "manage-employee": "Manage Employyee"
         }
     },
     "manage-user": {

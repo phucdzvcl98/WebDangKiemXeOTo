@@ -12,6 +12,10 @@ export const adminMenu = [
         name: 'menu.admin.manage-specialty', link: '/system/manage-specialty'
     },
     {
+        name: 'menu.center.manage-employee',
+        link: '/system/manage-employee'
+    },
+    {
         name: 'menu.admin.dashboard',
         link: '/system/admin-dashboard'
     },
@@ -21,6 +25,7 @@ export const centerMenu = [
     {//quản lý đặt lịch đăng kiểm
         name: 'menu.center.manage-schedule', link: '/center/manage-schedule'
     },
+
     { //quản lý khách đặt lịch đăng kiểm
         name: 'menu.center.manage-own', link: '/center/manage-own'
     },

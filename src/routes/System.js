@@ -8,6 +8,7 @@ import ManageCenter from '../containers/System/Admin/ManageCenter';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageArena from '../containers/System/Arena/ManageArena';
 import AdminDashboard from '../containers/System/Admin/AdminDashboard';
+import ManageEmployee from '../containers/System/Center/ManageEmployee';
 
 class System extends Component {
     render() {
@@ -24,7 +25,7 @@ class System extends Component {
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />
                             <Route path="/system/manage-arena" component={ManageArena} />
                             <Route path="/system/admin-dashboard" component={AdminDashboard} />
-
+                            <Route path="/system/manage-employee" component={ManageEmployee} />
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
                     </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
 import './ManageOwn.scss';
 import DatePicker from '../../../components/Input/DatePicker';
@@ -10,6 +11,7 @@ import RemedyModal from './RemedyModal';
 import CancelModal from './CancelModal';
 import { toast } from 'react-toastify';
 import LoadingOverlay from 'react-loading-overlay';
+import { getEmployeesByCenterService } from '../../../services/userService';
 
 class ManageOwn extends Component {
 
@@ -23,12 +25,31 @@ class ManageOwn extends Component {
             isOpenCancelModal: false,
             dataCancelModal: {},
             isShowLoading: false,
+            listEmployees: [],
+
 
         }
     }
 
     async componentDidMount() {
-        this.getDataOwn()
+        await this.getDataOwn();
+
+        let { userInfo } = this.props;
+
+        if (userInfo && userInfo.id) {
+            let res = await getEmployeesByCenterService(userInfo.id);
+
+            if (res && res.errCode === 0) {
+                let listEmployees = res.data.map(item => ({
+                    label: item.fullName,
+                    value: item.id
+                }));
+
+                this.setState({
+                    listEmployees: listEmployees
+                });
+            }
+        }
     }
 
     getDataOwn = async () => {
@@ -175,6 +196,21 @@ class ManageOwn extends Component {
             toast.error("Hủy lịch thất bại!");
         }
     }
+    handleChangeEmployee = (selectedOption, bookingId) => {
+        let dataOwn = [...this.state.dataOwn];
+
+        dataOwn = dataOwn.map(item => {
+            if (item.id === bookingId) {
+                item.employeeId = selectedOption.value;
+            }
+
+            return item;
+        });
+
+        this.setState({
+            dataOwn: dataOwn
+        });
+    }
 
     render() {
         let { dataOwn, isOpenRemedyModal, dataModal } = this.state;
@@ -207,8 +243,13 @@ class ManageOwn extends Component {
                                             <th>STT</th>
                                             <th><FormattedMessage id='manage-own.time' /></th>
                                             <th><FormattedMessage id='manage-own.fullName' /></th>
-                                            <th><FormattedMessage id='manage-own.address' /></th>
                                             <th><FormattedMessage id='manage-own.gender' /></th>
+                                            <th><FormattedMessage id='Số điện thoại' /></th>
+                                            <th><FormattedMessage id='manage-own.address' /></th>
+                                            <th><FormattedMessage id='Biển số xe' /></th>
+                                            <th><FormattedMessage id='Loại xe' /></th>
+                                            <th><FormattedMessage id='Trọng tải' /></th>
+                                            <th>Nhân viên phụ trách</th>
                                             <th><FormattedMessage id='manage-own.action' /></th>
                                         </tr>
                                         {dataOwn && dataOwn.length > 0 ?
@@ -222,8 +263,21 @@ class ManageOwn extends Component {
                                                         <td>{index + 1}</td>
                                                         <td>{item.timeTypeDataOwn.valueVi}</td>
                                                         <td>{item.fullName}</td>
-                                                        <td>{item.ownData.address}</td>
                                                         <td>{item.ownData.genderData.valueVi}</td>
+                                                        <td>{item.phoneNumber}</td>
+                                                        <td>{item.ownData.address}</td>
+                                                        <td>{item.plateNumber}</td>
+                                                        <td>{item.vehicleType}</td>
+                                                        <td>{item.loadCapacity}</td>
+                                                        <td style={{ width: '250px' }}>
+                                                            <Select
+                                                                options={this.state.listEmployees}
+                                                                placeholder="Chọn nhân viên"
+                                                                onChange={(selectedOption) =>
+                                                                    this.handleChangeEmployee(selectedOption, item.id)
+                                                                }
+                                                            />
+                                                        </td>
                                                         <td>
                                                             <button className='mp-btn-confirm'
                                                                 onClick={() => this.handleBtnConfirm(item)}>Xác nhận</button>
@@ -236,7 +290,7 @@ class ManageOwn extends Component {
                                             })
                                             :
                                             <tr>
-                                                <td colSpan="6" style={{ textAlign: "center" }}><FormattedMessage id='manage-own.nodata' /></td>
+                                                <td colSpan="9" style={{ textAlign: "center" }}><FormattedMessage id='manage-own.nodata' /></td>
                                             </tr>
                                         }
                                     </tbody>
@@ -266,6 +320,7 @@ const mapStateToProps = state => {
     return {
         language: state.app.language,
         user: state.user.userInfo,
+        userInfo: state.user.userInfo,
     };
 };
 

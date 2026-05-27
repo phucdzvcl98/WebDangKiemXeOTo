@@ -55,7 +55,8 @@
         },
         "center": {
             "manage-schedule": "Quản lý kế hoạch đăng kiểm",
-            "manage-own": "Quản lý khách đặt đăng kiểm"
+            "manage-own": "Quản lý khách đặt đăng kiểm",
+            "manage-employee": "Quản lý nhân viên đăng kiểm"
         }
     },
     "manage-user": {

@@ -215,7 +215,7 @@ export const editUserFailed = () => ({
 export const fetchTopCenter = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getTopCenterHomeService('');
+            let res = await getTopCenterHomeService('100');
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_TOP_CENTERS_SUCCESS,

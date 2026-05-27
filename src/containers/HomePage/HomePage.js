@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
 import Specialty from './Section/Specialty';
-import MedicalFacility from './Section/MedicalFacility';
+import Arena from './Section/Arena';
 import Center from './Section/Center';
 import CamNang from './Section/CamNang';
 import About from './Section/About';
@@ -16,7 +16,7 @@ class HomePage extends Component {
     render() {
         let settings = {
             dots: false,
-            infinite: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 4,
             slidesToScroll: 1,
@@ -25,7 +25,7 @@ class HomePage extends Component {
             <div>
                 <HomeHeader isShowBanner={true} />
                 <Specialty settings={settings} />
-                <MedicalFacility settings={settings} />
+                <Arena settings={settings} />
                 <Center settings={settings} />
                 {/* <CamNang settings={settings} /> */}
                 <About />

@@ -5,12 +5,12 @@ import Slider from 'react-slick';
 import { getAllArena } from '../../../services/userService';
 import { withRouter } from 'react-router';
 
-class MedicalFacility extends Component {
+class Arena extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            dataArenas: []
+            dataArenas: [],
         }
     }
 
@@ -74,4 +74,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MedicalFacility));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Arena));

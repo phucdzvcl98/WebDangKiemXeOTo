@@ -20,6 +20,7 @@ import DetailSpecialty from './Own/Specialty/DetailSpecialty.js';
 import DetailArena from './Own/Arena/DetailArena.js';
 import SearchBooking from '../containers/HomePage/SearchBooking';
 
+
 class App extends Component {
 
     handlePersistorState = () => {

@@ -1,0 +1,21 @@
+.arena-child {
+    cursor: pointer;
+
+    .arena-name {
+        padding: 10px 0;
+
+        &:hover {
+            color: #45c3d2;
+        }
+    }
+}
+
+.search-center-home {
+    margin: 10px 0 20px 0;
+
+    input {
+        height: 40px;
+        border-radius: 20px;
+        padding: 0 15px;
+    }
+}

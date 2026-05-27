@@ -92,6 +92,22 @@ const getAdminDashboardStats = () => {
 const cancelBooking = (data) => {
     return axios.post('/api/cancel-booking', data);
 }
+const createEmployeeService = (data) => {
+    return axios.post('/api/create-employee', data);
+}
+const getEmployeesByCenterService = (centerId) => {
+    return axios.get(`/api/get-employees-by-center?centerId=${centerId}`);
+}
+
+const updateEmployeeService = (data) => {
+    return axios.put('/api/update-employee', data);
+}
+
+const deleteEmployeeService = (id) => {
+    return axios.delete('/api/delete-employee', {
+        data: { id: id }
+    });
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -103,5 +119,6 @@ export {
     createNewSpecialty, getAllSpecialty, getAllDetailSpecialtyById,
     createNewArena, getAllArena, getAllDetailArenaById,
     getAllOwnForCenter, postSendRemedy, searchBooking,
-    getAdminDashboardStats, cancelBooking
+    getAdminDashboardStats, cancelBooking, createEmployeeService,
+    getEmployeesByCenterService, updateEmployeeService, deleteEmployeeService
 }

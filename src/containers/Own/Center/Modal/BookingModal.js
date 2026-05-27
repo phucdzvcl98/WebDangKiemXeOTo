@@ -30,12 +30,46 @@ class BookingModal extends Component {
             timeType: '',
             genders: '',
             plateNumber: '',
+            vehicleType: '',
+            loadCapacity: '',
+            listVehicleTypes: [
+                { label: 'Xe con', value: 'Xe con' },
+                { label: 'Xe bán tải', value: 'Xe bán tải' },
+                { label: 'Xe tải', value: 'Xe tải' },
+                { label: 'Xe khách', value: 'Xe khách' },
+                { label: 'Xe đầu kéo', value: 'Xe đầu kéo' },
+                { label: 'Xe container', value: 'Xe container' },
+                { label: 'Xe chuyên dụng', value: 'Xe chuyên dụng' },
+            ],
+
+            listLoadCapacities: [
+                { label: 'Dưới 1 tấn', value: 'Dưới 1 tấn' },
+                { label: '1 - 3 tấn', value: '1 - 3 tấn' },
+                { label: '3 - 5 tấn', value: '3 - 5 tấn' },
+                { label: '5 - 10 tấn', value: '5 - 10 tấn' },
+                { label: 'Trên 10 tấn', value: 'Trên 10 tấn' },
+            ],
+
+            selectedVehicleType: '',
+            selectedLoadCapacity: '',
         }
+    }
+    resetForm = () => {
+        this.setState({
+            fullName: '',
+            phoneNumber: '',
+            address: '',
+            reason: '',
+            birthday: '',
+            selectedGender: '',
+            plateNumber: '',
+            selectedVehicleType: '',
+            selectedLoadCapacity: '',
+        })
     }
 
     async componentDidMount() {
         this.props.getGenders();
-
     }
 
     buildDataGender = (data) => {
@@ -95,6 +129,18 @@ class BookingModal extends Component {
         this.setState({ selectedGender: selectedOption });
     }
 
+    handleChangeVehicleType = (selectedOption) => {
+        this.setState({
+            selectedVehicleType: selectedOption
+        })
+    }
+
+    handleChangeLoadCapacity = (selectedOption) => {
+        this.setState({
+            selectedLoadCapacity: selectedOption
+        })
+    }
+
     buildTimeBooking = (dataTime) => {
         let { language } = this.props;
         if (dataTime && !_.isEmpty(dataTime)) {
@@ -139,11 +185,14 @@ class BookingModal extends Component {
             language: this.props.language,
             timeString: timeString,
             centerName: centerName,
-            plateNumber: this.state.plateNumber
+            plateNumber: this.state.plateNumber,
+            vehicleType: this.state.selectedVehicleType ? this.state.selectedVehicleType.value : '',
+            loadCapacity: this.state.selectedLoadCapacity ? this.state.selectedLoadCapacity.value : ''
 
         })
         if (res && res.errCode === 0) {
             toast.success('Đặt lịch thành công!')
+            this.resetForm();
             this.props.closeBookingClose();
 
         } else if (res && res.errCode === 2) {
@@ -160,6 +209,8 @@ class BookingModal extends Component {
         //     toast.error('Booking a new appointment error!')
         // }
     }
+
+
 
     render() {
         //toggle={}
@@ -243,6 +294,28 @@ class BookingModal extends Component {
                                     onChange={(event) => this.handleOnchangeInput(event, 'plateNumber')}
                                 />
                             </div>
+                            <div className='col-6 form-group'>
+                                <label>Loại xe</label>
+                                <Select
+                                    value={this.state.selectedVehicleType}
+                                    onChange={this.handleChangeVehicleType}
+                                    options={this.state.listVehicleTypes}
+                                />
+                            </div>
+
+                            {this.state.selectedVehicleType?.value === 'Xe tải' ||
+                                this.state.selectedVehicleType?.value === 'Xe container' ||
+                                this.state.selectedVehicleType?.value === 'Xe đầu kéo'
+                                ?
+                                <div className='col-6 form-group'>
+                                    <label>Trọng tải</label>
+                                    <Select
+                                        value={this.state.selectedLoadCapacity}
+                                        onChange={this.handleChangeLoadCapacity}
+                                        options={this.state.listLoadCapacities}
+                                    />
+                                </div>
+                                : null}
                             <div className='col-12 form-group'>
                                 <label>
                                     <FormattedMessage id='own.booking-modal.reason' />
@@ -275,7 +348,7 @@ class BookingModal extends Component {
                             onClick={() => this.handleConfirmBooking()}
                         ><FormattedMessage id='own.booking-modal.btnConfirm' /></button>
                         <button className='btn-booking-cancel'
-                            onClick={closeBookingClose}
+                            onClick={() => { this.resetForm(); closeBookingClose(); }}
                         ><FormattedMessage id='own.booking-modal.btnCancel' /></button>
                     </div>
                 </div>
