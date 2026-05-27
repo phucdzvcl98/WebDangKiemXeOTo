@@ -14,10 +14,8 @@ let buildUrlEmail = (centerId, token) => {
 let postBookAppointment = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.email || !data.centerId || !data.timeType || !data.date
-                || !data.fullName || !data.selectedGender
-                || !data.address
-
+            if (!data.email || !data.centerId || !data.timeType
+                || !data.date || !data.plateNumber || !data.vehicleType
             ) {
                 resolve({
                     errCode: 1,
@@ -58,7 +56,10 @@ let postBookAppointment = (data) => {
                         gender: data.selectedGender,
                         address: data.address,
                         fullName: data.fullName,
-                        phoneNumber: data.phoneNumber
+                        phoneNumber: data.phoneNumber,
+                        plateNumber: data.plateNumber,
+                        vehicleType: data.vehicleType,
+                        loadCapacity: data.loadCapacity,
                     },
                 });
 
@@ -87,7 +88,9 @@ let postBookAppointment = (data) => {
                         token: token,
                         plateNumber: data.plateNumber,
                         phoneNumber: data.phoneNumber,
-                        fullName: data.fullName
+                        fullName: data.fullName,
+                        vehicleType: data.vehicleType,
+                        loadCapacity: data.loadCapacity
                     })
                 }
 

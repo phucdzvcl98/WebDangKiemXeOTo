@@ -36,6 +36,12 @@ module.exports = {
             phoneNumber: {
                 type: Sequelize.STRING
             },
+            vehicleType: {
+                type: Sequelize.STRING
+            },
+            loadCapacity: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

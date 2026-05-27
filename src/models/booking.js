@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: 'id',
                 as: 'centerData'
             })
+            Booking.belongsTo(models.Employee, {
+                foreignKey: 'employeeId',
+                as: 'employeeData'
+            });
         }
     }
     Booking.init({
@@ -30,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         token: DataTypes.STRING,
         plateNumber: DataTypes.STRING,
         phoneNumber: DataTypes.STRING,
-        fullName: DataTypes.STRING
+        fullName: DataTypes.STRING,
+        vehicleType: DataTypes.STRING,
+        loadCapacity: DataTypes.STRING,
+        employeeId: DataTypes.INTEGER,
 
     }, {
         sequelize,

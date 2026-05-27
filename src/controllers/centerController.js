@@ -165,6 +165,59 @@ let cancelBooking = async (req, res) => {
         })
     }
 }
+let createEmployee = async (req, res) => {
+
+    try {
+
+        let infor = await centerService.createEmployee(req.body);
+
+        return res.status(200).json(infor);
+
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let getEmployeesByCenter = async (req, res) => {
+    try {
+        let infor = await centerService.getEmployeesByCenter(req.query.centerId);
+        return res.status(200).json(infor);
+    } catch (e) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        });
+    }
+}
+
+let updateEmployee = async (req, res) => {
+    try {
+        let infor = await centerService.updateEmployee(req.body);
+        return res.status(200).json(infor);
+    } catch (e) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        });
+    }
+}
+
+let deleteEmployee = async (req, res) => {
+    try {
+        let infor = await centerService.deleteEmployee(req.body.id);
+        return res.status(200).json(infor);
+    } catch (e) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        });
+    }
+}
 module.exports = {
     getTopCenterHome: getTopCenterHome,
     getAllCenters: getAllCenters,
@@ -177,5 +230,9 @@ module.exports = {
     getListOwnForCenter: getListOwnForCenter,
     sendRemedy: sendRemedy,
     getAdminDashboardStats: getAdminDashboardStats,
-    cancelBooking: cancelBooking
+    cancelBooking: cancelBooking,
+    createEmployee: createEmployee,
+    getEmployeesByCenter: getEmployeesByCenter,
+    updateEmployee: updateEmployee,
+    deleteEmployee: deleteEmployee
 }

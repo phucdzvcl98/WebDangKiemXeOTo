@@ -439,8 +439,14 @@ let getListOwnForCenter = (centerId, date) => {
                             attributes: ['email', 'fullName', 'address', 'gender'],
                             include: [
                                 { model: db.Allcode, as: 'genderData', attributes: ['valueEn', 'valueVi'] },
+
                             ]
 
+                        },
+                        {
+                            model: db.Employee,
+                            as: 'employeeData',
+                            attributes: ['id', 'fullName']
                         },
                         {
                             model: db.Allcode, as: 'timeTypeDataOwn', attributes: ['valueEn', 'valueVi']
@@ -481,6 +487,7 @@ let sendRemedy = (data) => {
                 })
                 if (appointment) {
                     appointment.statusId = 'S3';
+                    appointment.employeeId = data.employeeId;
                     await appointment.save()
                 }
                 await emailService.sendAttachment(data);
@@ -580,7 +587,107 @@ let cancelBooking = (data) => {
         }
     })
 }
+let createEmployee = (data) => {
+    return new Promise(async (resolve, reject) => {
 
+        try {
+
+            await db.Employee.create({
+                fullName: data.fullName,
+                phoneNumber: data.phoneNumber,
+                position: data.position,
+                centerId: data.centerId
+            });
+
+            resolve({
+                errCode: 0,
+                errMessage: 'ok'
+            })
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+let getEmployeesByCenter = (centerId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = await db.Employee.findAll({
+                where: { centerId: centerId },
+                raw: true
+            });
+
+            resolve({
+                errCode: 0,
+                data
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+let updateEmployee = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing employee id'
+                });
+            } else {
+                let employee = await db.Employee.findOne({
+                    where: { id: data.id },
+                    raw: false
+                });
+
+                if (employee) {
+                    employee.fullName = data.fullName;
+                    employee.phoneNumber = data.phoneNumber;
+                    employee.position = data.position;
+
+                    await employee.save();
+
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Update employee success'
+                    });
+                } else {
+                    resolve({
+                        errCode: 2,
+                        errMessage: 'Employee not found'
+                    });
+                }
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+let deleteEmployee = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!id) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing employee id'
+                });
+            } else {
+                await db.Employee.destroy({
+                    where: { id: id }
+                });
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Delete employee success'
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
 
 module.exports = {
     getTopCenterHome: getTopCenterHome,
@@ -594,5 +701,9 @@ module.exports = {
     getListOwnForCenter: getListOwnForCenter,
     sendRemedy: sendRemedy,
     getAdminDashboardStats: getAdminDashboardStats,
-    cancelBooking: cancelBooking
+    cancelBooking: cancelBooking,
+    createEmployee: createEmployee,
+    getEmployeesByCenter: getEmployeesByCenter,
+    updateEmployee: updateEmployee,
+    deleteEmployee: deleteEmployee
 }
