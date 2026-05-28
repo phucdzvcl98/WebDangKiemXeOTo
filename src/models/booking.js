@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         vehicleType: DataTypes.STRING,
         loadCapacity: DataTypes.STRING,
         employeeId: DataTypes.INTEGER,
+        priceId: DataTypes.STRING
 
     }, {
         sequelize,

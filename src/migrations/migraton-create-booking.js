@@ -42,6 +42,13 @@ module.exports = {
             loadCapacity: {
                 type: Sequelize.STRING
             },
+            employeeId: {
+                type: Sequelize.INTEGER
+            },
+            priceId: {
+                type: Sequelize.STRING
+            },
+
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
