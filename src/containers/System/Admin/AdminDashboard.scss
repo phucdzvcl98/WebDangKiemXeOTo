@@ -1,95 +1,37 @@
 .admin-dashboard-container {
-    padding: 30px;
-    background: #f4f6f9;
+    padding: 25px;
+    background: #f5f7fb;
     min-height: 100vh;
 
     .dashboard-header {
-        margin-bottom: 30px;
+        background: white;
+        padding: 20px 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
-        h2 {
-            font-size: 32px;
+        .title {
+            font-size: 26px;
             font-weight: 700;
-            color: #222;
-        }
-
-        p {
-            color: #777;
-            margin-top: 5px;
+            color: #2c3e50;
         }
     }
 
-    .dashboard-card {
-        border-radius: 15px;
-        padding: 30px 20px;
-        color: white;
-        text-align: center;
-        margin-bottom: 20px;
-        transition: 0.3s;
+    .dashboard-filter {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
-        &:hover {
-            transform: translateY(-5px);
-        }
-
-        i {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        h3 {
-            font-size: 38px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        span {
-            font-size: 16px;
-        }
-    }
-
-    .center {
-        background: linear-gradient(135deg, #007bff, #0056b3);
-    }
-
-    .arena {
-        background: linear-gradient(135deg, #28a745, #1e7e34);
-    }
-
-    .specialty {
-        background: linear-gradient(135deg, #ff9800, #e68900);
-    }
-
-    .booking {
-        background: linear-gradient(135deg, #dc3545, #b52a37);
-    }
-}
-
-.dashboard-tables {
-    margin-top: 30px;
-
-    .stat-table {
-        background: #fff;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-
-        h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
+        label {
             font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
         }
 
-        table {
-            width: 100%;
-
-            th,
-            td {
-                padding: 12px;
-                border-bottom: 1px solid #eee;
-            }
-
-            th {
-                background: #f5f7fb;
-            }
+        .form-control {
+            height: 42px;
+            border-radius: 6px;
         }
     }
 }
