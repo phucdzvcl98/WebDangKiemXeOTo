@@ -108,6 +108,11 @@ const deleteEmployeeService = (id) => {
         data: { id: id }
     });
 }
+const getReportDashboardService = (data) => {
+    return axios.get(
+        `/api/report-dashboard?reportType=${data.reportType}&selectedDate=${data.selectedDate}&selectedMonth=${data.selectedMonth}&selectedYear=${data.selectedYear}&selectedCenter=${data.selectedCenter}`
+    );
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -120,5 +125,6 @@ export {
     createNewArena, getAllArena, getAllDetailArenaById,
     getAllOwnForCenter, postSendRemedy, searchBooking,
     getAdminDashboardStats, cancelBooking, createEmployeeService,
-    getEmployeesByCenterService, updateEmployeeService, deleteEmployeeService
+    getEmployeesByCenterService, updateEmployeeService, deleteEmployeeService,
+    getReportDashboardService
 }
