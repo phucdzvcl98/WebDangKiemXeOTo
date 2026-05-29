@@ -37,13 +37,12 @@ let initWebRoutes = (app) => {
     router.get('/api/get-list-own-for-center', centerController.getListOwnForCenter);
     router.post('/api/send-remedy', centerController.sendRemedy);
     router.get('/api/admin-dashboard-stats', centerController.getAdminDashboardStats);
-    router.get('/api/admin-dashboard-stats', centerController.getAdminDashboardStats);
     router.post('/api/cancel-booking', centerController.cancelBooking);
     router.post('/api/create-employee', centerController.createEmployee);
     router.get('/api/get-employees-by-center', centerController.getEmployeesByCenter);
-    router.get('/api/get-employees-by-center', centerController.getEmployeesByCenter);
     router.put('/api/update-employee', centerController.updateEmployee);
     router.delete('/api/delete-employee', centerController.deleteEmployee);
+    router.get('/api/report-dashboard', centerController.getReportDashboard);
 
     router.get('/api/search-booking', ownController.searchBooking);
     router.post('/api/own-book-appointment', ownController.postBookAppointment);

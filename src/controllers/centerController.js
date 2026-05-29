@@ -218,6 +218,23 @@ let deleteEmployee = async (req, res) => {
         });
     }
 }
+let getReportDashboard = async (req, res) => {
+    try {
+
+        let data = await centerService.getReportDashboard(req.query);
+
+        return res.status(200).json(data);
+
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        });
+    }
+}
 module.exports = {
     getTopCenterHome: getTopCenterHome,
     getAllCenters: getAllCenters,
@@ -234,5 +251,6 @@ module.exports = {
     createEmployee: createEmployee,
     getEmployeesByCenter: getEmployeesByCenter,
     updateEmployee: updateEmployee,
-    deleteEmployee: deleteEmployee
+    deleteEmployee: deleteEmployee,
+    getReportDashboard: getReportDashboard
 }

@@ -688,6 +688,152 @@ let deleteEmployee = (id) => {
         }
     });
 }
+let getReportDashboard = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let whereCondition = {};
+
+            if (data.reportType === 'DATE' && data.selectedDate) {
+                let startDate = new Date(data.selectedDate).setHours(0, 0, 0, 0);
+                let endDate = new Date(data.selectedDate).setHours(23, 59, 59, 999);
+
+                whereCondition.date = {
+                    [db.Sequelize.Op.between]: [startDate, endDate]
+                };
+            }
+
+            if (data.reportType === 'MONTH') {
+
+                let month = parseInt(data.selectedMonth);
+                let year = parseInt(data.selectedYear);
+
+                let startDate = new Date(year, month - 1, 1).getTime();
+
+                let endDate = new Date(year, month, 0, 23, 59, 59, 999).getTime();
+
+                whereCondition.date = {
+                    [db.Sequelize.Op.between]: [startDate, endDate]
+                };
+            }
+
+            if (data.reportType === 'YEAR') {
+
+                let year = parseInt(data.selectedYear);
+
+                let startDate = new Date(year, 0, 1).getTime();
+
+                let endDate = new Date(year, 11, 31, 23, 59, 59, 999).getTime();
+
+                whereCondition.date = {
+                    [db.Sequelize.Op.between]: [startDate, endDate]
+                };
+            }
+
+            if (
+                data.selectedCenter &&
+                data.selectedCenter !== 'ALL'
+            ) {
+                whereCondition.centerId = data.selectedCenter;
+            }
+
+            let bookings = await db.Booking.findAll({
+                where: whereCondition,
+                include: [
+                    {
+                        model: db.User,
+                        as: 'centerData',
+                        attributes: ['id', 'fullName'],
+                        include: [
+                            {
+                                model: db.Center_Infor,
+                                include: [
+                                    {
+                                        model: db.Allcode,
+                                        as: 'regionTypeData',
+                                        attributes: ['valueVi']
+                                    },
+                                    {
+                                        model: db.Allcode,
+                                        as: 'priceTypeData',
+                                        attributes: ['valueVi']
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                raw: false,
+                nest: true
+            });
+
+            let centerMap = {};
+            console.log(JSON.stringify(bookings[0], null, 2));
+            bookings.forEach(item => {
+                let centerId = item.centerId;
+                let price = Number(item.centerData?.Center_Infor?.priceTypeData?.valueVi || 0);
+                let region = item.centerData?.Center_Infor?.regionTypeData?.valueVi || 'Chưa có';
+
+                if (!centerMap[centerId]) {
+                    centerMap[centerId] = {
+                        centerName: item.centerData?.fullName || 'Chưa có',
+                        region: region,
+                        service: 'Dịch vụ đăng kiểm',
+                        vehicleType: '',
+                        totalBooking: 0,
+                        totalRevenue: 0,
+                        vehicleMap: {}
+                    }
+                }
+
+                centerMap[centerId].totalBooking += 1;
+                centerMap[centerId].totalRevenue += price;
+
+                let vehicle = item.vehicleType || 'Chưa có';
+
+                if (!centerMap[centerId].vehicleMap[vehicle]) {
+                    centerMap[centerId].vehicleMap[vehicle] = 0;
+                }
+
+                centerMap[centerId].vehicleMap[vehicle] += 1;
+            });
+
+            let reportByCenter = Object.values(centerMap).map(item => {
+                let vehicleType = Object.keys(item.vehicleMap)
+                    .map(key => `${key}: ${item.vehicleMap[key]}`)
+                    .join(', ');
+
+                return {
+                    centerName: item.centerName,
+                    centerCode: item.centerName.match(/\d{2}-\d{2}[A-Z]/)?.[0] || item.centerName,
+                    region: item.region,
+                    service: item.service,
+                    vehicleType: vehicleType,
+                    totalBooking: item.totalBooking,
+                    totalRevenue: item.totalRevenue
+                }
+            });
+
+            let totalBooking = bookings.length;
+            let totalCenter = reportByCenter.length;
+            let totalRevenue = reportByCenter.reduce((sum, item) => {
+                return sum + item.totalRevenue;
+            }, 0);
+
+            resolve({
+                errCode: 0,
+                data: {
+                    totalBooking,
+                    totalCenter,
+                    totalRevenue,
+                    reportByCenter
+                }
+            });
+
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
 
 module.exports = {
     getTopCenterHome: getTopCenterHome,
@@ -705,5 +851,6 @@ module.exports = {
     createEmployee: createEmployee,
     getEmployeesByCenter: getEmployeesByCenter,
     updateEmployee: updateEmployee,
-    deleteEmployee: deleteEmployee
+    deleteEmployee: deleteEmployee,
+    getReportDashboard: getReportDashboard,
 }
