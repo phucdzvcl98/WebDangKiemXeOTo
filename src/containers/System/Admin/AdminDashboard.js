@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AdminDashboard.scss';
 import { getReportDashboardService, getAllCenters } from '../../../services/userService';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, LabelList } from 'recharts';
 
 class AdminDashboard extends Component {
     constructor(props) {
@@ -17,6 +17,9 @@ class AdminDashboard extends Component {
             reportByCenter: [],
             totalCenter: 0,
             totalRevenue: 0,
+            totalRegion: 0,
+            totalService: 0,
+            totalVehicle: 0,
             selectedCenter: 'ALL',
             listCenters: [],
         }
@@ -64,12 +67,25 @@ class AdminDashboard extends Component {
                 totalBooking: res.data.totalBooking || 0,
                 totalCenter: res.data.totalCenter || 0,
                 totalRevenue: res.data.totalRevenue || 0,
-                reportByCenter: res.data.reportByCenter || []
+                totalRegion: res.data.totalRegion || 0,
+                totalService: res.data.totalService || 0,
+                totalVehicle: res.data.totalVehicle || 0,
+                reportByCenter: res.data.reportByCenter || [],
+                bookingByVehicle: res.data.bookingByVehicle || []
             });
         }
     }
 
     render() {
+        const COLORS = [
+            '#3498db',
+            '#e74c3c',
+            '#2ecc71',
+            '#f39c12',
+            '#9b59b6',
+            '#daf012',
+            '#34495e'
+        ];
         return (
             <div className='admin-dashboard-container'>
 
@@ -194,7 +210,35 @@ class AdminDashboard extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className='col-4'>
+                            <div className='summary-card center'>
+                                <i className="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <h3>{this.state.totalRegion}</h3>
+                                    <span>Tổng khu vực</span>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className='col-4'>
+                            <div className='summary-card booking'>
+                                <i className="fas fa-tools"></i>
+                                <div>
+                                    <h3>{this.state.totalService}</h3>
+                                    <span>Tổng dịch vụ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='col-4'>
+                            <div className='summary-card revenue'>
+                                <i className="fas fa-car"></i>
+                                <div>
+                                    <h3>{this.state.totalVehicle}</h3>
+                                    <span>Tổng loại xe</span>
+                                </div>
+                            </div>
+                        </div>
                         <div className='col-4'>
                             <div className='summary-card booking'>
                                 <i className="fas fa-calendar-check"></i>
@@ -230,7 +274,6 @@ class AdminDashboard extends Component {
                                     <th>STT</th>
                                     <th>Trung tâm</th>
                                     <th>Khu vực</th>
-                                    <th>Dịch vụ</th>
                                     <th>Loại xe</th>
                                     <th>Số lịch</th>
                                     <th>Tổng chi phí</th>
@@ -248,7 +291,6 @@ class AdminDashboard extends Component {
                                             <td>{index + 1}</td>
                                             <td>{item.centerName}</td>
                                             <td>{item.region}</td>
-                                            <td>{item.service}</td>
                                             <td>{item.vehicleType}</td>
                                             <td>{item.totalBooking}</td>
                                             <td>
@@ -262,7 +304,7 @@ class AdminDashboard extends Component {
                                     :
 
                                     <tr>
-                                        <td colSpan="7" className='text-center'>
+                                        <td colSpan="6" className='text-center'>
                                             Chưa có dữ liệu
                                         </td>
                                     </tr>
@@ -298,25 +340,96 @@ class AdminDashboard extends Component {
                                     height={100}
                                 />
 
-                                <YAxis />
+                                <YAxis domain={[0, 'dataMax + 100000']} />
 
                                 <Tooltip />
 
                                 <Bar
                                     dataKey="totalRevenue"
                                     fill="#3498db"
-                                />
+                                >
+                                    <LabelList
+                                        dataKey="totalRevenue"
+                                        position="top"
+                                        formatter={(value) => Number(value).toLocaleString()}
+                                    />
+                                </Bar>
 
                             </BarChart>
 
                         </ResponsiveContainer>
 
                     </div>
+                    <div className='report-table-card mt-4'>
 
-                    <div className='col-12 mt-3'>
-                        <pre>
-                            {JSON.stringify(this.state, null, 2)}
-                        </pre>
+                        <div className='report-table-header'>
+                            <h3>Biểu đồ số lịch hẹn theo trung tâm</h3>
+                        </div>
+
+                        <ResponsiveContainer width="100%" height={500}>
+                            <BarChart data={this.state.reportByCenter}>
+                                <CartesianGrid strokeDasharray="3 3" />
+
+                                <XAxis
+                                    dataKey="centerCode"
+                                    interval={0}
+                                    angle={-45}
+                                    textAnchor="end"
+                                    height={100}
+                                />
+
+                                <YAxis domain={[0, 'dataMax + 2']} />
+
+                                <Tooltip />
+
+                                <Bar
+                                    dataKey="totalBooking"
+                                    fill="#27ae60"
+                                >
+                                    <LabelList
+                                        dataKey="totalBooking"
+                                        position="top"
+                                    />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+
+                    </div>
+                    <div className='report-table-card mt-4'>
+
+                        <div className='report-table-header'>
+                            <h3>Biểu đồ loại xe</h3>
+                        </div>
+
+                        <ResponsiveContainer width="100%" height={500}>
+
+                            <PieChart>
+
+                                <Pie
+                                    data={this.state.bookingByVehicle}
+                                    dataKey="total"
+                                    nameKey="name"
+                                    cx="50%"
+                                    cy="50%"
+                                    outerRadius={180}
+                                    label={({ name, value }) => `${name}: ${value}`}
+                                >
+                                    {this.state.bookingByVehicle.map((entry, index) => (
+                                        <Cell
+                                            key={index}
+                                            fill={COLORS[index % COLORS.length]}
+                                        />
+                                    ))}
+                                </Pie>
+
+                                <Tooltip />
+
+                                <Legend />
+
+                            </PieChart>
+
+                        </ResponsiveContainer>
+
                     </div>
 
                 </div>
