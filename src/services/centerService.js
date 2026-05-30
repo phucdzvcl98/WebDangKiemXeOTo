@@ -767,12 +767,19 @@ let getReportDashboard = (data) => {
             });
 
             let centerMap = {};
+            let vehicleMap = {};
             console.log(JSON.stringify(bookings[0], null, 2));
             bookings.forEach(item => {
                 let centerId = item.centerId;
                 let price = Number(item.centerData?.Center_Infor?.priceTypeData?.valueVi || 0);
                 let region = item.centerData?.Center_Infor?.regionTypeData?.valueVi || 'Chưa có';
+                let vehicle = item.vehicleType || 'Khác';
 
+                if (!vehicleMap[vehicle]) {
+                    vehicleMap[vehicle] = 0;
+                }
+
+                vehicleMap[vehicle]++;
                 if (!centerMap[centerId]) {
                     centerMap[centerId] = {
                         centerName: item.centerData?.fullName || 'Chưa có',
@@ -788,7 +795,6 @@ let getReportDashboard = (data) => {
                 centerMap[centerId].totalBooking += 1;
                 centerMap[centerId].totalRevenue += price;
 
-                let vehicle = item.vehicleType || 'Chưa có';
 
                 if (!centerMap[centerId].vehicleMap[vehicle]) {
                     centerMap[centerId].vehicleMap[vehicle] = 0;
@@ -802,6 +808,7 @@ let getReportDashboard = (data) => {
                     .map(key => `${key}: ${item.vehicleMap[key]}`)
                     .join(', ');
 
+
                 return {
                     centerName: item.centerName,
                     centerCode: item.centerName.match(/\d{2}-\d{2}[A-Z]/)?.[0] || item.centerName,
@@ -812,6 +819,20 @@ let getReportDashboard = (data) => {
                     totalRevenue: item.totalRevenue
                 }
             });
+            let bookingByVehicle = Object.keys(vehicleMap).map(key => ({
+                name: key,
+                total: vehicleMap[key]
+            }));
+            let regionSet = new Set();
+            reportByCenter.forEach(item => {
+                if (item.region) {
+                    regionSet.add(item.region);
+                }
+            });
+
+            let totalRegion = regionSet.size;
+            let totalVehicle = bookingByVehicle.length;
+            let totalService = 1;
 
             let totalBooking = bookings.length;
             let totalCenter = reportByCenter.length;
@@ -825,7 +846,11 @@ let getReportDashboard = (data) => {
                     totalBooking,
                     totalCenter,
                     totalRevenue,
-                    reportByCenter
+                    totalRegion,
+                    totalVehicle,
+                    totalService,
+                    reportByCenter,
+                    bookingByVehicle
                 }
             });
 
